@@ -222,10 +222,10 @@ class _TreasuryScreenState extends State<TreasuryScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Dashboard bendahara',
+                    'Bendahara',
                     style: theme.textTheme.titleLarge,
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 20),
                   Row(
                     children: [
                       Expanded(

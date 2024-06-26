@@ -7,6 +7,9 @@ class SettingProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    theme = Theme.of(context);
+    isDarkMode = theme.brightness == Brightness.dark;
+
     return Container(
       width: double.maxFinite,
       padding: const EdgeInsets.all(10),
