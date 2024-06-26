@@ -56,18 +56,9 @@ Future<ConfirmDuesModel?> getCitizens(
       total: data['data']['total'],
       dues: dues,
     );
-  } on DioException catch (error) {
-    final data = error.response?.data;
-
-    if (data != null) {
-      NotificationWidget.show(
-        title: 'Error!',
-        description: data['msg'],
-        type: ToastificationType.error,
-      );
-    }
+  } on DioException catch (_) {
+    return null;
   }
-  return null;
 }
 
 Future<void> sendReminder(Map<String, dynamic> body, String name) async {
