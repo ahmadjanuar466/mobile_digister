@@ -33,7 +33,7 @@ class DuesModel {
 
   factory DuesModel.fromJson(Map<String, dynamic> data) {
     return DuesModel(
-      userId: int.tryParse(data['id']) ?? data['id'],
+      userId: int.tryParse(data['id'] ?? "") ?? data['id'],
       nik: data['nik'],
       name: data['nama'],
       block: data['blok'],
