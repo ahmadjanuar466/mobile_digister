@@ -35,17 +35,20 @@ class Buttons extends StatelessWidget {
               child: SizedBox(
                 height: 45,
                 child: OutlinedButton(
-                  onPressed: () {},
+                  onPressed: onRepeat,
                   child: const Text('Ulangi'),
                 ),
               ),
             ),
-          if (isInfo && userLevel.userLevelName != 'Warga' && isValid == 0)
+          if (isInfo &&
+              (userLevel.userLevelName == 'Bendahara' ||
+                  userLevel.userLevelName == 'Admin') &&
+              isValid == 0)
             Expanded(
               child: SizedBox(
                 height: 45,
                 child: OutlinedButton(
-                  onPressed: () {},
+                  onPressed: onValidate,
                   child: const Text('Validasi'),
                 ),
               ),

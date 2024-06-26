@@ -19,7 +19,9 @@ class _MainScreenState extends State<MainScreen> {
   final List<Widget> _listScreen = [
     const HomeScreen(),
     const MessageScreen(),
-    if (userLevel.userLevelName != "Warga") const TreasuryScreen(),
+    if (userLevel.userLevelName == "Bendahara" ||
+        userLevel.userLevelName == 'Admin')
+      const TreasuryScreen(),
     const NotificationScreen(),
     const AccountScreen(),
   ];
