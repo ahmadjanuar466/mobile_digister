@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "404465896782",
+    "project_id": "digister-ec36b",
+    "storage_bucket": "digister-ec36b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:404465896782:android:ce5e091abfdeed9fd7e21f",
+        "android_client_info": {
+          "package_name": "com.aster.digister"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVdRnk8ZK5O5nMQhBjuP1ODyCdOO5W0ZE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:404465896782:android:2d19c081d7ff65b9d7e21f",
+        "android_client_info": {
+          "package_name": "com.example.smart_home"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVdRnk8ZK5O5nMQhBjuP1ODyCdOO5W0ZE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
