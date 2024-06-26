@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:digister/main.dart';
-import 'package:digister/screens/confirmation/confirmation_screen.dart';
+// import 'package:digister/main.dart';
+// import 'package:digister/screens/confirmation/confirmation_screen.dart';
 import 'package:digister/services/auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:page_transition/page_transition.dart';
+// import 'package:page_transition/page_transition.dart';
 
 @pragma('vm:entry-point')
 Future<void> handleBackgroundMessage(RemoteMessage message) async {}
@@ -26,12 +26,12 @@ class FirebaseApi {
   void handleMessage(RemoteMessage? message) {
     if (message == null) return;
 
-    navigatorKey.currentState!.push(
-      PageTransition(
-        child: const ConfirmationScreen(fromNotification: true),
-        type: PageTransitionType.rightToLeft,
-      ),
-    );
+    // navigatorKey.currentState!.push(
+    //   PageTransition(
+    //     child: const ConfirmationScreen(fromNotification: true),
+    //     type: PageTransitionType.rightToLeft,
+    //   ),
+    // );
   }
 
   Future initLocalNotifications() async {
