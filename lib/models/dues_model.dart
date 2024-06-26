@@ -1,5 +1,5 @@
 class DuesModel {
-  final int userId;
+  final int? userId;
   final String nik;
   final String name;
   final String block;
@@ -33,7 +33,7 @@ class DuesModel {
 
   factory DuesModel.fromJson(Map<String, dynamic> data) {
     return DuesModel(
-      userId: data['id'],
+      userId: int.tryParse(data['id']) ?? data['id'],
       nik: data['nik'],
       name: data['nama'],
       block: data['blok'],
