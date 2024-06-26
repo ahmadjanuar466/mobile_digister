@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -49,21 +50,25 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBVdRnk8ZK5O5nMQhBjuP1ODyCdOO5W0ZE',
-    appId: '1:404465896782:android:ce5e091abfdeed9fd7e21f',
-    messagingSenderId: '404465896782',
-    projectId: 'digister-ec36b',
-    storageBucket: 'digister-ec36b.appspot.com',
+  static String messagingId = dotenv.env['MESSAGING_ID'] as String;
+  static String projectId = dotenv.env['PROJECT_ID'] as String;
+  static String storageBucket = dotenv.env['STORAGE_BUCKET'] as String;
+  static String bundleId = dotenv.env['BUNDLE_ID'] as String;
+
+  static FirebaseOptions android = FirebaseOptions(
+    apiKey: dotenv.env['ANDROID_API_KEY'] as String,
+    appId: dotenv.env['ANDROID_APP_ID'] as String,
+    messagingSenderId: messagingId,
+    projectId: projectId,
+    storageBucket: storageBucket,
   );
 
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAbWr9WvfvQAMI_c-Z4zV-8H2uPC8JdsnY',
-    appId: '1:404465896782:ios:7374f056b266038cd7e21f',
-    messagingSenderId: '404465896782',
-    projectId: 'digister-ec36b',
-    storageBucket: 'digister-ec36b.appspot.com',
-    iosBundleId: 'com.aster.digister',
+  static FirebaseOptions ios = FirebaseOptions(
+    apiKey: dotenv.env['IOS_API_KEY'] as String,
+    appId: dotenv.env['IOS_APP_ID'] as String,
+    messagingSenderId: messagingId,
+    projectId: projectId,
+    storageBucket: storageBucket,
+    iosBundleId: bundleId,
   );
-
 }
