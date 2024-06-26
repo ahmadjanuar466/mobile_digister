@@ -221,6 +221,11 @@ class _TreasuryScreenState extends State<TreasuryScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Text(
+                    'Dashboard bendahara',
+                    style: theme.textTheme.titleLarge,
+                  ),
+                  const SizedBox(height: 8),
                   Row(
                     children: [
                       Expanded(
