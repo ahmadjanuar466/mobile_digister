@@ -1,4 +1,5 @@
 import 'package:digister/models/dues_model.dart';
+import 'package:digister/routes/route_helper.dart';
 import 'package:digister/screens/loading/components/buttons.dart';
 import 'package:digister/screens/loading/components/dues_detail.dart';
 import 'package:digister/services/dues.dart';
@@ -12,10 +13,12 @@ class LoadingScreen extends StatefulWidget {
     super.key,
     required this.dues,
     this.isInfo = false,
+    this.fromNotification = false,
   });
 
   final DuesModel dues;
   final bool isInfo;
+  final bool fromNotification;
 
   @override
   State<LoadingScreen> createState() => _LoadingScreenState();
@@ -90,36 +93,44 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
     return Scaffold(
       backgroundColor: !isDarkMode ? Colors.grey.shade100 : null,
-      body: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            DuesDetail(dues: widget.dues, isInfo: widget.isInfo),
-            Positioned(
-              top: _loading ? 150 : 120,
-              child: LottieBuilder.asset(
-                _lottieAsset,
-                width: _loading
-                    ? 150
-                    : _lottieAsset == LottieAssets.error
-                        ? 220
-                        : 185,
-                repeat: _loading,
+      body: PopScope(
+        canPop: !widget.fromNotification,
+        onPopInvoked: (didPop) {
+          if (didPop) return;
+
+          RouteHelper.pop(context);
+        },
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              DuesDetail(dues: widget.dues, isInfo: widget.isInfo),
+              Positioned(
+                top: _loading ? 150 : 120,
+                child: LottieBuilder.asset(
+                  _lottieAsset,
+                  width: _loading
+                      ? 150
+                      : _lottieAsset == LottieAssets.error
+                          ? 220
+                          : 185,
+                  repeat: _loading,
+                ),
               ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Buttons(
-                isInfo: widget.isInfo,
-                unConfirmed: _unConfirmed,
-                isValid: widget.dues.isValid!,
-                onRepeat: _sendConfirmation,
-                onValidate: _handleValidation,
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Buttons(
+                  isInfo: widget.isInfo,
+                  unConfirmed: _unConfirmed,
+                  isValid: widget.dues.isValid!,
+                  onRepeat: _sendConfirmation,
+                  onValidate: _handleValidation,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

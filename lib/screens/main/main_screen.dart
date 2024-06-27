@@ -1,5 +1,4 @@
 import 'package:digister/screens/message/message_screen.dart';
-import 'package:digister/screens/notification/notification_screen.dart';
 import 'package:digister/services/firebase_api.dart';
 import 'package:flutter/material.dart';
 import 'package:digister/screens/account/account_screen.dart';
@@ -22,7 +21,6 @@ class _MainScreenState extends State<MainScreen> {
     if (userLevel.userLevelName == "Bendahara" ||
         userLevel.userLevelName == 'Admin')
       const TreasuryScreen(),
-    const NotificationScreen(),
     const AccountScreen(),
   ];
 
@@ -48,9 +46,6 @@ class _MainScreenState extends State<MainScreen> {
         child: _listScreen[_selectedIndex],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        iconSize: 22,
-        selectedFontSize: 12,
-        unselectedFontSize: 10,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
@@ -64,21 +59,14 @@ class _MainScreenState extends State<MainScreen> {
             ),
             label: 'Pesan',
           ),
-          if (userLevel.userLevelName != "Warga")
+          if (userLevel.userLevelName == "Bendahara" ||
+              userLevel.userLevelName == 'Admin')
             const BottomNavigationBarItem(
               icon: Icon(
                 Icons.balance_rounded,
               ),
               label: 'Bendahara',
             ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              _selectedIndex == 3
-                  ? Icons.notifications
-                  : Icons.notifications_outlined,
-            ),
-            label: 'Notifikasi',
-          ),
           BottomNavigationBarItem(
             icon: Icon(
               _selectedIndex == 4

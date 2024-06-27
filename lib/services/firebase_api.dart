@@ -1,11 +1,12 @@
 import 'dart:convert';
-
-// import 'package:digister/main.dart';
-// import 'package:digister/screens/confirmation/confirmation_screen.dart';
+import 'package:digister/main.dart';
+import 'package:digister/screens/confirmation/confirmation_screen.dart';
+import 'package:digister/screens/loading/loading_screen.dart';
 import 'package:digister/services/auth.dart';
+import 'package:digister/services/dues.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-// import 'package:page_transition/page_transition.dart';
+import 'package:page_transition/page_transition.dart';
 
 @pragma('vm:entry-point')
 Future<void> handleBackgroundMessage(RemoteMessage message) async {}
@@ -23,15 +24,35 @@ class FirebaseApi {
   );
   final _localNotifications = FlutterLocalNotificationsPlugin();
 
-  void handleMessage(RemoteMessage? message) {
+  void handleMessage(RemoteMessage? message) async {
     if (message == null) return;
 
-    // navigatorKey.currentState!.push(
-    //   PageTransition(
-    //     child: const ConfirmationScreen(fromNotification: true),
-    //     type: PageTransitionType.rightToLeft,
-    //   ),
-    // );
+    final data = message.data;
+
+    if (data['tipe'] == 'Input') {
+      navigatorKey.currentState!.push(
+        PageTransition(
+          child: const ConfirmationScreen(fromNotification: true),
+          type: PageTransitionType.rightToLeft,
+        ),
+      );
+      return;
+    }
+
+    final dues = await getDuesById(data['id']);
+
+    if (dues != null) {
+      navigatorKey.currentState!.push(
+        PageTransition(
+          child: LoadingScreen(
+            dues: dues,
+            isInfo: true,
+            fromNotification: true,
+          ),
+          type: PageTransitionType.rightToLeft,
+        ),
+      );
+    }
   }
 
   Future initLocalNotifications() async {

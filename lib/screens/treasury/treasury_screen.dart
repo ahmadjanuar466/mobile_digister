@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:digister/models/confirm_dues_model.dart';
 import 'package:digister/routes/route_helper.dart';
 import 'package:digister/screens/treasury/components/floating_button.dart';
@@ -29,78 +30,80 @@ class _TreasuryScreenState extends State<TreasuryScreen> {
   String _month = "";
   String _year = "";
   bool _loading = true;
+  int _totalUnpaid = 0;
+  int _totalPaid = 0;
+  int _totalUnconfirmed = 0;
+  int _totalConfirmed = 0;
 
   @override
   void initState() {
     super.initState();
     _month = DateTime.now().month.toString();
     _year = DateTime.now().year.toString();
-    _getUnpaidCitizens();
-    _getPaidCitizens();
-    _getConfirmedCitizens();
-    _getUnconfirmedCitizens();
+    _getAllCitizens();
   }
 
-  _getUnpaidCitizens() async {
-    final unpaidCitizens = await getCitizens('/api/bendahara/databelumiuran', {
+  void _getCitizens({required String uri, required String type}) async {
+    final citizens = await getCitizens(uri, {
       'bln': _month,
       'thn': _year,
     });
 
     if (!mounted) return;
 
-    setState(() {
-      _unpaidCitizens = unpaidCitizens;
-    });
+    if (type == 'unpaid') {
+      setState(() {
+        _unpaidCitizens = citizens;
+      });
+    } else if (type == 'paid') {
+      setState(() {
+        _paidCitizens = citizens;
+      });
+    } else if (type == 'unconfirmed') {
+      setState(() {
+        _unConfirmedCitizens = citizens;
+      });
+    } else {
+      setState(() {
+        _confirmedCitizens = citizens;
+        _loading = false;
+      });
+    }
+
+    if (citizens != null) {
+      Timer.periodic(const Duration(milliseconds: 20), (timer) {
+        if (_totalUnpaid != citizens.total && type == 'unpaid') {
+          setState(() {
+            _totalUnpaid++;
+          });
+        } else if (_totalPaid != citizens.total && type == 'paid') {
+          setState(() {
+            _totalPaid++;
+          });
+        } else if (_totalUnconfirmed != citizens.total &&
+            type == 'unconfirmed') {
+          setState(() {
+            _totalUnconfirmed++;
+          });
+        } else if (_totalConfirmed != citizens.total && type == 'confirmed') {
+          setState(() {
+            _totalConfirmed++;
+          });
+        } else {
+          timer.cancel();
+        }
+      });
+    }
   }
 
-  _getPaidCitizens() async {
-    final paidCitizens = await getCitizens('/api/bendahara/datasdhbayariuran', {
-      'bln': _month,
-      'thn': _year,
-    });
-
-    if (!mounted) return;
-
-    setState(() {
-      _paidCitizens = paidCitizens;
-    });
+  void _getAllCitizens() {
+    _getCitizens(uri: '/api/bendahara/databelumiuran', type: 'unpaid');
+    _getCitizens(uri: '/api/bendahara/datasdhbayariuran', type: 'paid');
+    _getCitizens(uri: '/api/bendahara/datablmkonfirmasi', type: 'unconfirmed');
+    _getCitizens(uri: '/api/bendahara/datasdhkonfirmasi', type: 'confirmed');
   }
 
-  _getConfirmedCitizens() async {
-    final confirmedCitizens = await getCitizens(
-      '/api/bendahara/datasdhkonfirmasi',
-      {
-        'bln': _month,
-        'thn': _year,
-      },
-    );
-
-    if (!mounted) return;
-
-    setState(() {
-      _confirmedCitizens = confirmedCitizens;
-      _loading = false;
-    });
-  }
-
-  _getUnconfirmedCitizens() async {
-    final unConfirmedCitizens = await getCitizens(
-      '/api/bendahara/datablmkonfirmasi',
-      {
-        'bln': _month,
-        'thn': _year,
-      },
-    );
-
-    if (!mounted) return;
-
-    setState(() {
-      _unConfirmedCitizens = unConfirmedCitizens;
-    });
-  }
-
-  _showMonthPicker(String type) async {
+  void _showMonthPicker(String type) async {
     final pickedMonth = await showMonthPicker(
       context: context,
       initialDate: DateTime.now(),
@@ -140,15 +143,12 @@ class _TreasuryScreenState extends State<TreasuryScreen> {
         setState(() {
           _loading = true;
         });
-        _getUnpaidCitizens();
-        _getPaidCitizens();
-        _getConfirmedCitizens();
-        _getUnconfirmedCitizens();
+        _getAllCitizens();
       }
     }
   }
 
-  _createNewPosting() async {
+  void _createNewPosting() async {
     if (_formKey.currentState!.validate()) {
       Navigator.pop(context);
 
@@ -160,7 +160,7 @@ class _TreasuryScreenState extends State<TreasuryScreen> {
     }
   }
 
-  _showCreateNewBillModal() {
+  void _showCreateNewBillModal() {
     showModalBottomSheet(
       context: context,
       backgroundColor: theme.colorScheme.primaryContainer,
@@ -231,7 +231,7 @@ class _TreasuryScreenState extends State<TreasuryScreen> {
                       Expanded(
                         child: Highlight(
                           title: 'Belum bayar',
-                          total: _unpaidCitizens?.total ?? 0,
+                          total: _totalUnpaid,
                           onTap: () => RouteHelper.push(
                             context,
                             widget: ListDataScreen(
@@ -249,7 +249,7 @@ class _TreasuryScreenState extends State<TreasuryScreen> {
                       Expanded(
                         child: Highlight(
                           title: 'Sudah bayar',
-                          total: _paidCitizens?.total ?? 0,
+                          total: _totalPaid,
                           onTap: () => RouteHelper.push(
                             context,
                             widget: ListDataScreen(
@@ -269,7 +269,7 @@ class _TreasuryScreenState extends State<TreasuryScreen> {
                       Expanded(
                         child: Highlight(
                           title: 'Belum konfirmasi',
-                          total: _unConfirmedCitizens?.total ?? 0,
+                          total: _totalUnconfirmed,
                           onTap: () => RouteHelper.push(
                             context,
                             widget: ListDataScreen(
@@ -285,7 +285,7 @@ class _TreasuryScreenState extends State<TreasuryScreen> {
                       Expanded(
                         child: Highlight(
                           title: 'Sudah konfirmasi',
-                          total: _confirmedCitizens?.total ?? 0,
+                          total: _totalConfirmed,
                           onTap: () => RouteHelper.push(
                             context,
                             widget: ListDataScreen(
@@ -308,10 +308,7 @@ class _TreasuryScreenState extends State<TreasuryScreen> {
                   Expanded(
                     child: NewConfirmation(
                       onRefresh: () async {
-                        _getUnpaidCitizens();
-                        _getPaidCitizens();
-                        _getUnconfirmedCitizens();
-                        _getConfirmedCitizens();
+                        _getAllCitizens();
                       },
                       unConfirmedCitizens: _unConfirmedCitizens,
                     ),

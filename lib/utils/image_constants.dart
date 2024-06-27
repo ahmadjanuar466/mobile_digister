@@ -19,4 +19,5 @@ class ImageAssets {
   static const waterImage = '$_imagePath/water.png';
   static const guardImage = '$_imagePath/guard.png';
   static const asikImage = '$_imagePath/asik.webp';
+  static const infoNotifImage = '$_imagePath/info-notif.png';
 }

@@ -102,3 +102,30 @@ Future<List<DuesModel>> duesHistory(Map<String, String> body) async {
     return [];
   }
 }
+
+Future<DuesModel?> getDuesById(String id) async {
+  try {
+    final response = await dio.get(
+      "/api/konfirmasi/$id",
+      options: Options(headers: {
+        'Authorization': 'Bearer ${localStorage.getItem('token')}'
+      }),
+    );
+
+    final data = response.data;
+
+    return DuesModel.fromJson(data['data']);
+  } on DioException catch (error) {
+    final data = error.response?.data;
+
+    if (data != null) {
+      NotificationWidget.show(
+        title: 'Error!',
+        description: data['msg'],
+        type: ToastificationType.error,
+      );
+    }
+
+    return null;
+  }
+}

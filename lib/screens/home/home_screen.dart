@@ -1,6 +1,8 @@
+import 'package:digister/models/log_model.dart';
 import 'package:digister/models/security_model.dart';
 import 'package:digister/screens/home/components/card_header.dart';
 import 'package:digister/screens/home/components/header.dart';
+import 'package:digister/services/activity.dart';
 import 'package:digister/services/housing.dart';
 import 'package:digister/utils/image_constants.dart';
 import 'package:flutter/material.dart';
@@ -18,12 +20,25 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late PageController _pageController;
   final List<SecurityModel> _securities = [];
+  final List<LogModel> _notifications = [];
 
   @override
   void initState() {
     super.initState();
     _pageController = PageController(viewportFraction: 0.75);
+    _getNotifications();
     _getSecurities();
+  }
+
+  Future<void> _getNotifications() async {
+    final notifications = await getLogs();
+
+    if (!mounted) return;
+
+    _notifications.clear();
+    setState(() {
+      _notifications.addAll(notifications);
+    });
   }
 
   Future<void> _getSecurities() async {
@@ -40,15 +55,18 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: _getSecurities,
+      onRefresh: () async {
+        _getNotifications();
+        _getSecurities();
+      },
       backgroundColor: isDarkMode
           ? theme.colorScheme.secondary
           : theme.colorScheme.onPrimary,
       child: ListView(
         children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Header(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Header(notifications: _notifications),
           ),
           const SizedBox(height: 10),
           const Padding(
