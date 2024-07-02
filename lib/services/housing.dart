@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:digister/models/block_model.dart';
 import 'package:digister/models/cctv_model.dart';
 import 'package:digister/models/housing_model.dart';
+import 'package:digister/models/information_model.dart';
 import 'package:digister/models/security_model.dart';
 import 'package:digister/utils/dio_config.dart';
 import 'package:digister/widgets/notification.dart';
@@ -101,6 +102,27 @@ Future<List<CCTVModel>> getCCTV(String block) async {
       );
     }
 
+    return [];
+  }
+}
+
+Future<List<InformationModel>> getInformations() async {
+  try {
+    final response = await dio.get(
+      '/api/informasi',
+      options: Options(headers: {
+        'Authorization': 'Bearer ${localStorage.getItem('token')}'
+      }),
+    );
+
+    final data = response.data;
+    final List<InformationModel> informations = [];
+    for (var item in data['data']) {
+      informations.add(InformationModel.fromJson(item));
+    }
+
+    return informations;
+  } on DioException catch (_) {
     return [];
   }
 }

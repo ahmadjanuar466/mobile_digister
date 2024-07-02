@@ -20,6 +20,13 @@ class _PasswordFieldState extends State<PasswordField> {
   bool _showPassword = false;
   bool _showConfirmPassword = false;
 
+  @override
+  void dispose() {
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
+  }
+
   _handleChangePassword() async {
     if (_formKey.currentState!.validate()) {
       showLoader(context, "Merubah password");

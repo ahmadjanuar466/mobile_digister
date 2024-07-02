@@ -6,5 +6,5 @@ class LottieAssets {
   static const success = '$_jsonPath/success.json';
   static const info = '$_jsonPath/info.json';
   static const error = '$_jsonPath/error.json';
-  static const notFound = '$_jsonPath/404.json';
+  static const empty = '$_jsonPath/empty.json';
 }

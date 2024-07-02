@@ -43,6 +43,12 @@ class _TreasuryScreenState extends State<TreasuryScreen> {
     _getAllCitizens();
   }
 
+  @override
+  void dispose() {
+    _dateController.dispose();
+    super.dispose();
+  }
+
   void _getCitizens({required String uri, required String type}) async {
     final citizens = await getCitizens(uri, {
       'bln': _month,
@@ -232,17 +238,20 @@ class _TreasuryScreenState extends State<TreasuryScreen> {
                         child: Highlight(
                           title: 'Belum bayar',
                           total: _totalUnpaid,
-                          onTap: () => RouteHelper.push(
-                            context,
-                            widget: ListDataScreen(
-                              listData: _unpaidCitizens!.dues,
-                              title: 'Belum iuran',
-                              month: _month,
-                              year: _year,
-                              listType: 'unpaid',
-                            ),
-                            transitionType: PageTransitionType.rightToLeft,
-                          ),
+                          onTap: _unpaidCitizens != null
+                              ? () => RouteHelper.push(
+                                    context,
+                                    widget: ListDataScreen(
+                                      listData: _unpaidCitizens!.dues,
+                                      title: 'Belum iuran',
+                                      month: _month,
+                                      year: _year,
+                                      listType: 'unpaid',
+                                    ),
+                                    transitionType:
+                                        PageTransitionType.rightToLeft,
+                                  )
+                              : () {},
                         ),
                       ),
                       const SizedBox(width: 8),
@@ -250,15 +259,18 @@ class _TreasuryScreenState extends State<TreasuryScreen> {
                         child: Highlight(
                           title: 'Sudah bayar',
                           total: _totalPaid,
-                          onTap: () => RouteHelper.push(
-                            context,
-                            widget: ListDataScreen(
-                              listData: _paidCitizens!.dues,
-                              title: 'Sudah iuran',
-                              listType: 'paid',
-                            ),
-                            transitionType: PageTransitionType.rightToLeft,
-                          ),
+                          onTap: _paidCitizens != null
+                              ? () => RouteHelper.push(
+                                    context,
+                                    widget: ListDataScreen(
+                                      listData: _paidCitizens!.dues,
+                                      title: 'Sudah iuran',
+                                      listType: 'paid',
+                                    ),
+                                    transitionType:
+                                        PageTransitionType.rightToLeft,
+                                  )
+                              : () {},
                         ),
                       ),
                     ],
@@ -270,15 +282,18 @@ class _TreasuryScreenState extends State<TreasuryScreen> {
                         child: Highlight(
                           title: 'Belum konfirmasi',
                           total: _totalUnconfirmed,
-                          onTap: () => RouteHelper.push(
-                            context,
-                            widget: ListDataScreen(
-                              listData: _unConfirmedCitizens!.dues,
-                              title: 'Belum divalidasi',
-                              listType: 'unconfirmed',
-                            ),
-                            transitionType: PageTransitionType.rightToLeft,
-                          ),
+                          onTap: _unConfirmedCitizens != null
+                              ? () => RouteHelper.push(
+                                    context,
+                                    widget: ListDataScreen(
+                                      listData: _unConfirmedCitizens!.dues,
+                                      title: 'Belum divalidasi',
+                                      listType: 'unconfirmed',
+                                    ),
+                                    transitionType:
+                                        PageTransitionType.rightToLeft,
+                                  )
+                              : () {},
                         ),
                       ),
                       const SizedBox(width: 8),
@@ -286,15 +301,18 @@ class _TreasuryScreenState extends State<TreasuryScreen> {
                         child: Highlight(
                           title: 'Sudah konfirmasi',
                           total: _totalConfirmed,
-                          onTap: () => RouteHelper.push(
-                            context,
-                            widget: ListDataScreen(
-                              listData: _confirmedCitizens!.dues,
-                              title: 'Sudah divalidasi',
-                              listType: 'confirmed',
-                            ),
-                            transitionType: PageTransitionType.rightToLeft,
-                          ),
+                          onTap: _confirmedCitizens != null
+                              ? () => RouteHelper.push(
+                                    context,
+                                    widget: ListDataScreen(
+                                      listData: _confirmedCitizens!.dues,
+                                      title: 'Sudah divalidasi',
+                                      listType: 'confirmed',
+                                    ),
+                                    transitionType:
+                                        PageTransitionType.rightToLeft,
+                                  )
+                              : () {},
                         ),
                       ),
                     ],

@@ -14,6 +14,12 @@ class _NIKFieldState extends State<NIKField> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   final TextEditingController _nikController = TextEditingController();
 
+  @override
+  void dispose() {
+    _nikController.dispose();
+    super.dispose();
+  }
+
   _handleCheckNIK() async {
     if (_formKey.currentState!.validate()) {
       showLoader(context, "Memeriksa NIK");

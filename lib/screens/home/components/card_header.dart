@@ -41,53 +41,13 @@ class CardHeader extends StatelessWidget {
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),
-                Text(
-                  'Elektronik yang menyala',
-                  style: theme.textTheme.bodyMedium!.copyWith(
-                    color: theme.colorScheme.onPrimary,
-                  ),
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SizedBox(
-                      width: 30,
-                      height: 30,
-                      child: IconButton(
-                        onPressed: () {},
-                        padding: EdgeInsets.zero,
-                        icon: Icon(
-                          Icons.light_rounded,
-                          color: theme.colorScheme.onPrimary,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 30,
-                      height: 30,
-                      child: IconButton(
-                        onPressed: () {},
-                        padding: EdgeInsets.zero,
-                        icon: Icon(
-                          Icons.ac_unit_rounded,
-                          color: theme.colorScheme.onPrimary,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 30,
-                      height: 30,
-                      child: IconButton(
-                        onPressed: () {},
-                        padding: EdgeInsets.zero,
-                        icon: Icon(
-                          Icons.tv,
-                          color: theme.colorScheme.onPrimary,
-                        ),
-                      ),
-                    ),
-                  ],
-                )
+                // Text(
+                //   'Elektronik yang menyala',
+                //   style: theme.textTheme.bodyMedium!.copyWith(
+                //     color: theme.colorScheme.onPrimary,
+                //   ),
+                // ),
+                // const ConnectedDevices()
               ],
             ),
             Column(
@@ -129,6 +89,57 @@ class CardHeader extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class ConnectedDevices extends StatelessWidget {
+  const ConnectedDevices({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SizedBox(
+          width: 30,
+          height: 30,
+          child: IconButton(
+            onPressed: () {},
+            padding: EdgeInsets.zero,
+            icon: Icon(
+              Icons.light_rounded,
+              color: theme.colorScheme.onPrimary,
+            ),
+          ),
+        ),
+        SizedBox(
+          width: 30,
+          height: 30,
+          child: IconButton(
+            onPressed: () {},
+            padding: EdgeInsets.zero,
+            icon: Icon(
+              Icons.ac_unit_rounded,
+              color: theme.colorScheme.onPrimary,
+            ),
+          ),
+        ),
+        SizedBox(
+          width: 30,
+          height: 30,
+          child: IconButton(
+            onPressed: () {},
+            padding: EdgeInsets.zero,
+            icon: Icon(
+              Icons.tv,
+              color: theme.colorScheme.onPrimary,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

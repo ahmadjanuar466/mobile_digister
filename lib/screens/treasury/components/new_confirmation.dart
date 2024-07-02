@@ -19,7 +19,7 @@ class NewConfirmation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    timeago.setLocaleMessages('id', timeago.IdMessages());
+    timeago.setLocaleMessages('idShort', timeago.IdShortMessages());
 
     return RefreshIndicator(
       backgroundColor: isDarkMode
@@ -54,11 +54,14 @@ class NewConfirmation extends StatelessWidget {
                             item.name,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          subtitle: Text(item.duesType!),
+                          subtitle: Text(
+                            item.duesType!,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                           trailing: Text(
                             timeago.format(
                               DateTime.parse(item.paymentDate!),
-                              locale: "id",
+                              locale: "idShort",
                             ),
                             overflow: TextOverflow.ellipsis,
                           ),

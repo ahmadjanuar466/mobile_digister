@@ -39,6 +39,14 @@ class _ConfirmationTabState extends State<ConfirmationTab> {
     _getDuesList();
   }
 
+  @override
+  void dispose() {
+    _dateController.dispose();
+    _ketController.dispose();
+    _monthController.dispose();
+    super.dispose();
+  }
+
   void _getDuesList() async {
     final dues = await getDues();
 

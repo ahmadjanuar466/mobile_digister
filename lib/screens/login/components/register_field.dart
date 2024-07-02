@@ -40,8 +40,21 @@ class _RegisterFieldState extends State<RegisterField> {
     _getHousings();
   }
 
+  @override
+  void dispose() {
+    _nikController.dispose();
+    _namaController.dispose();
+    _phoneController.dispose();
+    _houseNumController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   void _getBlocks() async {
     final blocks = await getBlocks();
+
+    if (!mounted) return;
 
     setState(() {
       _blocks.addAll(blocks);
@@ -50,6 +63,8 @@ class _RegisterFieldState extends State<RegisterField> {
 
   void _getHousings() async {
     final housings = await getHousings();
+
+    if (!mounted) return;
 
     setState(() {
       _housings.addAll(housings);

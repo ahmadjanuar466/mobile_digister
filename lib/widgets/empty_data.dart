@@ -1,5 +1,7 @@
 import 'package:digister/utils/global.dart';
+import 'package:digister/utils/lottie_asset.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class EmptyData extends StatelessWidget {
   const EmptyData({
@@ -15,7 +17,11 @@ class EmptyData extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(Icons.article, size: 100),
+          LottieBuilder.asset(
+            LottieAssets.empty,
+            repeat: false,
+            width: 120,
+          ),
           Text(
             title,
             style: theme.textTheme.titleMedium,

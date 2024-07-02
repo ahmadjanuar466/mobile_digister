@@ -21,6 +21,13 @@ class _LoginFieldState extends State<LoginField> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   bool _isPasswordVisible = false;
 
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   void _handleLogin() async {
     if (_formKey.currentState!.validate()) {
       showLoader(context, "Login. Mohon tunggu");

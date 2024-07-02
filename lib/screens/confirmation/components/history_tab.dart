@@ -55,7 +55,7 @@ class _HistoryTabState extends State<HistoryTab> {
     }
 
     if (!_isDataExist) {
-      return const EmptyData(title: 'Riwayat konfirmasi kosong');
+      return const EmptyData(title: 'Riwayat belum ada');
     }
 
     return DataExistView(
