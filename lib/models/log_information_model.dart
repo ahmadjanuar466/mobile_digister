@@ -1,6 +1,7 @@
 import 'package:digister/models/dues_model.dart';
+import 'package:digister/models/information_model.dart';
 
-class LogModel {
+class LogInformation {
   final String logId;
   final String userId;
   final String name;
@@ -9,9 +10,10 @@ class LogModel {
   final String logType;
   final String logDate;
   final String isRead;
-  final DuesModel? dues;
+  final Dues? dues;
+  final Information? information;
 
-  const LogModel({
+  const LogInformation({
     required this.logId,
     required this.userId,
     required this.name,
@@ -21,10 +23,15 @@ class LogModel {
     required this.logDate,
     required this.isRead,
     this.dues,
+    this.information,
   });
 
-  factory LogModel.fromJson(Map<String, dynamic> data, DuesModel? dues) {
-    return LogModel(
+  factory LogInformation.fromJson(
+    Map<String, dynamic> data,
+    Dues? dues,
+    Information? information,
+  ) {
+    return LogInformation(
       logId: data['id_log'],
       userId: data['id_user'],
       name: data['name'],
@@ -34,6 +41,7 @@ class LogModel {
       logDate: data['log_date'],
       isRead: data['is_read'],
       dues: dues,
+      information: information,
     );
   }
 }

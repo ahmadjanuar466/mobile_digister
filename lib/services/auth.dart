@@ -47,8 +47,8 @@ Future<bool> doLogin(Map<String, dynamic> body) async {
 
     localStorage.setItem('token', token);
 
-    user = UserModel.fromJson(payload['data']);
-    userLevel = UserLevelModel.fromJson(payload['lvl']);
+    user = User.fromJson(payload['data']);
+    userLevel = UserLevel.fromJson(payload['lvl']);
 
     return true;
   } on DioException catch (error) {

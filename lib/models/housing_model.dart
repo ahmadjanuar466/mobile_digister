@@ -1,14 +1,14 @@
-class HousingModel {
+class Housing {
   final String housingId;
   final String housingName;
 
-  const HousingModel({
+  const Housing({
     required this.housingId,
     required this.housingName,
   });
 
-  factory HousingModel.fromJson(Map<String, dynamic> data) {
-    return HousingModel(
+  factory Housing.fromJson(Map<String, dynamic> data) {
+    return Housing(
       housingId: data['id_perumahan'],
       housingName: data['nama_perumahan'],
     );

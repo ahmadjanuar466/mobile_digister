@@ -1,10 +1,10 @@
 import 'package:digister/models/dues_model.dart';
 
-class ConfirmDuesModel {
+class ConfirmDues {
   final int total;
-  final List<DuesModel> dues;
+  final List<Dues> dues;
 
-  const ConfirmDuesModel({
+  const ConfirmDues({
     required this.total,
     required this.dues,
   });

@@ -13,7 +13,7 @@ class DuesDetail extends StatelessWidget {
     required this.isInfo,
   });
 
-  final DuesModel dues;
+  final Dues dues;
   final bool isInfo;
 
   void _showImageDetail(BuildContext context) {

@@ -1,13 +1,19 @@
 import 'package:digister/models/information_model.dart';
+import 'package:digister/routes/route_helper.dart';
+import 'package:digister/screens/announcement/announcement_detail_screen.dart';
 import 'package:digister/utils/global.dart';
 import 'package:digister/widgets/empty_data.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class Announcement extends StatefulWidget {
-  const Announcement({super.key, required this.informations});
+  const Announcement({
+    super.key,
+    required this.informations,
+  });
 
-  final List<InformationModel> informations;
+  final List<Information> informations;
 
   @override
   State<Announcement> createState() => _AnnouncementState();
@@ -19,7 +25,7 @@ class _AnnouncementState extends State<Announcement> {
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(viewportFraction: 0.75);
+    _pageController = PageController(viewportFraction: 0.90);
   }
 
   @override
@@ -34,45 +40,54 @@ class _AnnouncementState extends State<Announcement> {
       children: [
         SizedBox(
           width: double.maxFinite,
-          height: 160,
+          height: 180,
           child: widget.informations.isNotEmpty
               ? PageView.builder(
                   controller: _pageController,
                   itemCount: widget.informations.length,
                   padEnds: false,
-                  itemBuilder: (context, index) => Container(
-                    width: 250,
-                    height: 160,
-                    margin: const EdgeInsets.symmetric(horizontal: 5),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      image: DecorationImage(
-                        image: MemoryImage(widget.informations[index].image),
-                        fit: BoxFit.cover,
+                  itemBuilder: (context, index) => GestureDetector(
+                    onTap: () => RouteHelper.push(
+                      context,
+                      widget: AnnouncementDetailScreen(
+                        information: widget.informations[index],
                       ),
+                      transitionType: PageTransitionType.rightToLeft,
                     ),
-                    alignment: Alignment.bottomCenter,
                     child: Container(
-                      decoration: const BoxDecoration(
-                        color: Colors.black45,
-                        borderRadius: BorderRadius.vertical(
-                          bottom: Radius.circular(20),
+                      width: 250,
+                      height: 180,
+                      margin: const EdgeInsets.symmetric(horizontal: 5),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        image: DecorationImage(
+                          image: MemoryImage(widget.informations[index].image),
+                          fit: BoxFit.cover,
                         ),
                       ),
-                      child: ListTile(
-                        dense: true,
-                        title: Text(
-                          widget.informations[index].title,
-                          style: theme.textTheme.titleSmall!.copyWith(
-                            color: Colors.white,
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          color: Colors.black45,
+                          borderRadius: BorderRadius.vertical(
+                            bottom: Radius.circular(20),
                           ),
                         ),
-                        subtitle: Text(
-                          widget.informations[index].body,
-                          style: theme.textTheme.bodySmall!.copyWith(
-                            color: Colors.white,
+                        child: ListTile(
+                          dense: true,
+                          title: Text(
+                            widget.informations[index].title,
+                            style: theme.textTheme.titleSmall!.copyWith(
+                              color: Colors.white,
+                            ),
                           ),
-                          overflow: TextOverflow.ellipsis,
+                          subtitle: Text(
+                            widget.informations[index].body,
+                            style: theme.textTheme.bodySmall!.copyWith(
+                              color: Colors.white,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                       ),
                     ),

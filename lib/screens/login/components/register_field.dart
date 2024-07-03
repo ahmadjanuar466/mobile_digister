@@ -27,8 +27,8 @@ class _RegisterFieldState extends State<RegisterField> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey();
-  final List<BlockModel> _blocks = [];
-  final List<HousingModel> _housings = [];
+  final List<Block> _blocks = [];
+  final List<Housing> _housings = [];
   bool _isPasswordVisible = false;
   String? _currentBlock;
   String? _currentHousing;

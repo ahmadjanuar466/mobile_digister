@@ -8,11 +8,11 @@ import 'package:page_transition/page_transition.dart';
 class DataExistView extends StatelessWidget {
   const DataExistView({
     super.key,
-    required List<DuesModel> listHistory,
+    required List<Dues> listHistory,
     required this.onRefresh,
   }) : _listHistory = listHistory;
 
-  final List<DuesModel> _listHistory;
+  final List<Dues> _listHistory;
   final Future<void> Function() onRefresh;
 
   @override

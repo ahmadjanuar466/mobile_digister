@@ -1,4 +1,4 @@
-class UserModel {
+class User {
   final String userId;
   final String nik;
   final String nama;
@@ -10,7 +10,7 @@ class UserModel {
   final String email;
   final String housingName;
 
-  const UserModel({
+  const User({
     required this.userId,
     required this.nik,
     required this.nama,
@@ -23,8 +23,8 @@ class UserModel {
     required this.housingName,
   });
 
-  factory UserModel.fromJson(Map<String, dynamic> data) {
-    return UserModel(
+  factory User.fromJson(Map<String, dynamic> data) {
+    return User(
       userId: data['id'],
       nik: data['nik'],
       nama: data['nama'],

@@ -31,7 +31,7 @@ class _ConfirmationTabState extends State<ConfirmationTab> {
   final TextEditingController _monthController = TextEditingController();
   int _currentMonth = 0;
   String _currentYear = "";
-  final List<DuesTypeModel> _duesList = [];
+  final List<DuesType> _duesList = [];
 
   @override
   void initState() {
@@ -193,7 +193,7 @@ class _ConfirmationTabState extends State<ConfirmationTab> {
           )
           .toList();
 
-      final dues = DuesModel(
+      final dues = Dues(
         userId: int.parse(user.userId),
         nik: user.nik,
         name: user.nama,

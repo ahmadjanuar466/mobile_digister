@@ -18,7 +18,7 @@ class ListDataScreen extends StatelessWidget {
     this.year,
   });
 
-  final List<DuesModel> listData;
+  final List<Dues> listData;
   final String title;
   final String? month;
   final String? year;

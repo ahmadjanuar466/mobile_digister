@@ -1,4 +1,4 @@
-class DuesModel {
+class Dues {
   final int? userId;
   final String nik;
   final String name;
@@ -14,7 +14,7 @@ class DuesModel {
   final String? proofOfPayment;
   final String? explanation;
 
-  const DuesModel({
+  const Dues({
     required this.userId,
     required this.nik,
     required this.name,
@@ -31,8 +31,8 @@ class DuesModel {
     this.explanation,
   });
 
-  factory DuesModel.fromJson(Map<String, dynamic> data) {
-    return DuesModel(
+  factory Dues.fromJson(Map<String, dynamic> data) {
+    return Dues(
       userId: data['id'],
       nik: data['nik'],
       name: data['nama'],

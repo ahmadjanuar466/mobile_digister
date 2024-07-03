@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ForgotPasswordModel extends ChangeNotifier {
+class ForgotPassword extends ChangeNotifier {
   Map<String, dynamic> _screenState = {
     "title": "Lupa Sandi",
     "description":

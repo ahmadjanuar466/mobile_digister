@@ -8,7 +8,7 @@ import 'package:dio/dio.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:toastification/toastification.dart';
 
-Future<List<DuesTypeModel>> getDues() async {
+Future<List<DuesType>> getDues() async {
   try {
     final response = await dio.get(
       '/api/konfirmasi/jenisiuran',
@@ -18,9 +18,9 @@ Future<List<DuesTypeModel>> getDues() async {
     );
 
     final data = response.data;
-    final List<DuesTypeModel> duesList = [];
+    final List<DuesType> duesList = [];
     for (var item in data['data']) {
-      duesList.add(DuesTypeModel.fromJson(item));
+      duesList.add(DuesType.fromJson(item));
     }
 
     return duesList;
@@ -81,7 +81,7 @@ Future<bool> validateDues(Map<String, dynamic> body) async {
   }
 }
 
-Future<List<DuesModel>> duesHistory(Map<String, String> body) async {
+Future<List<Dues>> duesHistory(Map<String, String> body) async {
   try {
     final response = await dio.post(
       '/api/konfirmasi/listwarga',
@@ -92,9 +92,9 @@ Future<List<DuesModel>> duesHistory(Map<String, String> body) async {
     );
 
     final data = response.data;
-    final List<DuesModel> dues = [];
+    final List<Dues> dues = [];
     for (var item in data['data']) {
-      dues.add(DuesModel.fromJson(item));
+      dues.add(Dues.fromJson(item));
     }
 
     return dues;
@@ -103,7 +103,7 @@ Future<List<DuesModel>> duesHistory(Map<String, String> body) async {
   }
 }
 
-Future<DuesModel?> getDuesById(String id) async {
+Future<Dues?> getDuesById(String id) async {
   try {
     final response = await dio.get(
       "/api/konfirmasi/$id",
@@ -114,7 +114,7 @@ Future<DuesModel?> getDuesById(String id) async {
 
     final data = response.data;
 
-    return DuesModel.fromJson(data['data']);
+    return Dues.fromJson(data['data']);
   } on DioException catch (error) {
     final data = error.response?.data;
 

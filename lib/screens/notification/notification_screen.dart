@@ -1,5 +1,6 @@
-import 'package:digister/models/log_model.dart';
+import 'package:digister/models/log_information_model.dart';
 import 'package:digister/routes/route_helper.dart';
+import 'package:digister/screens/announcement/announcement_detail_screen.dart';
 import 'package:digister/screens/confirmation/confirmation_screen.dart';
 import 'package:digister/screens/loading/loading_screen.dart';
 import 'package:digister/services/activity.dart';
@@ -14,7 +15,7 @@ import 'package:timeago/timeago.dart' as timeago;
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key, required this.notifications});
 
-  final List<LogModel> notifications;
+  final List<LogInformation> notifications;
 
   @override
   State<NotificationScreen> createState() => _NotificationScreenState();
@@ -31,13 +32,22 @@ class _NotificationScreenState extends State<NotificationScreen> {
     });
   }
 
-  void _handleTap(LogModel item) {
+  void _handleTap(LogInformation item) {
     updateLog(item.logId);
 
     if (item.logType == 'Input') {
       RouteHelper.push(
         context,
         widget: const ConfirmationScreen(),
+        transitionType: PageTransitionType.rightToLeft,
+      ).then((_) => _getUpdatedNotifications());
+      return;
+    }
+
+    if (item.logType == 'Info') {
+      RouteHelper.push(
+        context,
+        widget: AnnouncementDetailScreen(information: item.information!),
         transitionType: PageTransitionType.rightToLeft,
       ).then((_) => _getUpdatedNotifications());
       return;
@@ -54,7 +64,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
   Widget build(BuildContext context) {
     theme = Theme.of(context);
     isDarkMode = theme.brightness == Brightness.dark;
-    timeago.setLocaleMessages('idShort', timeago.IdShortMessages());
 
     return Scaffold(
       body: SafeArea(

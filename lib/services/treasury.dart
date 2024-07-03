@@ -33,7 +33,7 @@ Future<bool> createPosting(Map<String, String> body) async {
   }
 }
 
-Future<ConfirmDuesModel?> getCitizens(
+Future<ConfirmDues?> getCitizens(
   String uri,
   Map<String, String> body,
 ) async {
@@ -47,12 +47,12 @@ Future<ConfirmDuesModel?> getCitizens(
     );
 
     final data = response.data;
-    final List<DuesModel> dues = [];
+    final List<Dues> dues = [];
     for (var item in data['data']['data']) {
-      dues.add(DuesModel.fromJson(item));
+      dues.add(Dues.fromJson(item));
     }
 
-    return ConfirmDuesModel(
+    return ConfirmDues(
       total: data['data']['total'],
       dues: dues,
     );

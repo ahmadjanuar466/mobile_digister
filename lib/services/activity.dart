@@ -1,13 +1,15 @@
 import 'dart:convert';
 
 import 'package:digister/models/dues_model.dart';
-import 'package:digister/models/log_model.dart';
+import 'package:digister/models/information_model.dart';
+import 'package:digister/models/log_information_model.dart';
 import 'package:digister/services/dues.dart';
+import 'package:digister/services/housing.dart';
 import 'package:digister/utils/dio_config.dart';
 import 'package:dio/dio.dart';
 import 'package:localstorage/localstorage.dart';
 
-Future<List<LogModel>> getLogs() async {
+Future<List<LogInformation>> getLogs() async {
   try {
     final response = await dio.get(
       '/api/log',
@@ -17,14 +19,19 @@ Future<List<LogModel>> getLogs() async {
     );
 
     final data = response.data;
-    final List<LogModel> notifications = [];
-    DuesModel? dues;
+    final List<LogInformation> notifications = [];
+    Dues? dues;
+    Information? information;
     for (var item in data['data']) {
       if (item['id_konfirmasi_pembayaran'].isNotEmpty) {
         dues = await getDuesById(item['id_konfirmasi_pembayaran']);
       }
 
-      notifications.add(LogModel.fromJson(item, dues));
+      if (item['id_informasi'].isNotEmpty) {
+        information = await getInformationById(item['id_informasi']);
+      }
+
+      notifications.add(LogInformation.fromJson(item, dues, information));
     }
 
     return notifications;

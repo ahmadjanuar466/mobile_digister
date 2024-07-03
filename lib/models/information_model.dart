@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-class InformationModel {
+class Information {
   final String id;
   final String title;
   final String body;
@@ -11,7 +11,7 @@ class InformationModel {
   final Uint8List image;
   final String isActive;
 
-  const InformationModel({
+  const Information({
     required this.id,
     required this.title,
     required this.body,
@@ -22,8 +22,8 @@ class InformationModel {
     required this.isActive,
   });
 
-  factory InformationModel.fromJson(Map<String, dynamic> data) {
-    return InformationModel(
+  factory Information.fromJson(Map<String, dynamic> data) {
+    return Information(
       id: data['id_informasi'],
       title: data['judul_informasi'],
       body: data['isi_informasi'],

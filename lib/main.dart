@@ -11,6 +11,7 @@ import 'package:localstorage/localstorage.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:digister/screens/splash/splash_screen.dart';
 import 'package:toastification/toastification.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,6 +44,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeMode = localStorage.getItem('theme');
+    timeago.setLocaleMessages('idShort', timeago.IdShortMessages());
+    timeago.setLocaleMessages('id', timeago.IdMessages());
 
     return ToastificationWrapper(
       child: StreamBuilder<ThemeData>(

@@ -19,7 +19,7 @@ class CCTVScreen extends StatefulWidget {
 
 class _CCTVScreenState extends State<CCTVScreen> {
   final List<VlcPlayerController> _controller = [];
-  final List<CCTVModel> _cctvs = [];
+  final List<CCTV> _cctvs = [];
 
   @override
   void initState() {

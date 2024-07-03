@@ -14,13 +14,11 @@ class NewConfirmation extends StatelessWidget {
     required this.onRefresh,
   });
 
-  final ConfirmDuesModel? unConfirmedCitizens;
+  final ConfirmDues? unConfirmedCitizens;
   final Future<void> Function() onRefresh;
 
   @override
   Widget build(BuildContext context) {
-    timeago.setLocaleMessages('idShort', timeago.IdShortMessages());
-
     return RefreshIndicator(
       backgroundColor: isDarkMode
           ? theme.colorScheme.primaryContainer

@@ -17,7 +17,7 @@ class EmptyData extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          LottieBuilder.asset(
+          Lottie.asset(
             LottieAssets.empty,
             repeat: false,
             width: 120,

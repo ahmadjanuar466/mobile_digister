@@ -9,10 +9,10 @@ import '../models/forgot_password_model.dart';
 ThemeData theme = CustomTheme.lightTheme;
 bool isDarkMode = false;
 int isFirst = int.tryParse(localStorage.getItem('isFirst') ?? "") ?? 1;
-late UserModel user;
-late UserLevelModel userLevel;
+late User user;
+late UserLevel userLevel;
 List<dynamic> listSecurity = [];
-final ForgotPasswordModel forgotPasswordModel = ForgotPasswordModel();
+final ForgotPassword forgotPasswordModel = ForgotPassword();
 late String appVersion;
 
 String? validator(String? value) {

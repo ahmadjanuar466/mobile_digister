@@ -8,6 +8,14 @@ class DioConfig {
     receiveTimeout: const Duration(seconds: 5),
     headers: {'Content-Type': 'application/json'},
   );
+
+  static final optionForecastAPI = BaseOptions(
+    baseUrl: dotenv.env['FORECAST_URL'] as String,
+    connectTimeout: const Duration(seconds: 5),
+    receiveTimeout: const Duration(seconds: 5),
+    headers: {'Content-Type': 'application/json'},
+  );
 }
 
 final dio = Dio(DioConfig.optionAPI);
+final dioForecast = Dio(DioConfig.optionForecastAPI);

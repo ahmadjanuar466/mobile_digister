@@ -18,7 +18,7 @@ class MenuItem {
 
   final String title;
   final String imageAsset;
-  final void Function(BuildContext, List<SecurityModel>?)? onPressed;
+  final void Function(BuildContext, List<Security>?)? onPressed;
 }
 
 List<MenuItem> menuItems = [
@@ -80,7 +80,7 @@ List<MenuItem> menuItems = [
   ),
 ];
 
-void _securitiesModal(BuildContext context, List<SecurityModel>? securities) {
+void _securitiesModal(BuildContext context, List<Security>? securities) {
   showModalBottomSheet(
     context: context,
     showDragHandle: true,
@@ -150,7 +150,7 @@ void _securitiesModal(BuildContext context, List<SecurityModel>? securities) {
 }
 
 void _callSecurity({
-  required SecurityModel security,
+  required Security security,
   required String platform,
 }) async {
   final phoneNumber = security.phoneNumber.substring(1);

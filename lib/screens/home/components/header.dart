@@ -1,4 +1,4 @@
-import 'package:digister/models/log_model.dart';
+import 'package:digister/models/log_information_model.dart';
 import 'package:digister/routes/route_helper.dart';
 import 'package:digister/screens/notification/notification_screen.dart';
 import 'package:digister/utils/global.dart';
@@ -11,7 +11,7 @@ class Header extends StatelessWidget {
     required this.notifications,
   });
 
-  final List<LogModel> notifications;
+  final List<LogInformation> notifications;
 
   @override
   Widget build(BuildContext context) {

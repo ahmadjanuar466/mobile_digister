@@ -15,7 +15,7 @@ class HistoryTab extends StatefulWidget {
 class _HistoryTabState extends State<HistoryTab> {
   bool _isLoading = true;
   bool _isDataExist = false;
-  final List<DuesModel> _duesHistory = [];
+  final List<Dues> _duesHistory = [];
 
   @override
   void initState() {

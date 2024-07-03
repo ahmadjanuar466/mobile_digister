@@ -6,14 +6,34 @@ import 'package:digister/utils/image_constants.dart';
 import 'package:digister/utils/jwt_decoder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:digister/screens/main/main_screen.dart';
 import 'package:digister/screens/onboarding/onboarding_screen.dart';
 import 'package:digister/utils/global.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    _checkLocationPermission();
+  }
+
+  void _checkLocationPermission() async {
+    LocationPermission permission = await Geolocator.checkPermission();
+
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+    }
+  }
 
   void _nextScreen(BuildContext context) {
     if (isFirst == 1) {
@@ -46,8 +66,8 @@ class SplashScreen extends StatelessWidget {
     }
 
     final payload = JwtDecoder.decodeJwt(token)['payload'];
-    user = UserModel.fromJson(payload['data']);
-    userLevel = UserLevelModel.fromJson(payload['lvl']);
+    user = User.fromJson(payload['data']);
+    userLevel = UserLevel.fromJson(payload['lvl']);
 
     RouteHelper.pushReplacement(
       context,

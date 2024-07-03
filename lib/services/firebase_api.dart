@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'package:digister/main.dart';
+import 'package:digister/screens/announcement/announcement_detail_screen.dart';
 import 'package:digister/screens/confirmation/confirmation_screen.dart';
 import 'package:digister/screens/loading/loading_screen.dart';
 import 'package:digister/services/auth.dart';
 import 'package:digister/services/dues.dart';
+import 'package:digister/services/housing.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:page_transition/page_transition.dart';
@@ -36,6 +38,23 @@ class FirebaseApi {
           type: PageTransitionType.rightToLeft,
         ),
       );
+      return;
+    }
+
+    if (data['tipe'] == 'Info') {
+      final information = await getInformationById(data['id']);
+
+      if (information != null) {
+        navigatorKey.currentState!.push(
+          PageTransition(
+            child: AnnouncementDetailScreen(
+              information: information,
+              fromNotification: true,
+            ),
+            type: PageTransitionType.rightToLeft,
+          ),
+        );
+      }
       return;
     }
 
@@ -109,6 +128,7 @@ class FirebaseApi {
 
     // subscribe to topic so server can make a broadcast
     await _firebaseMessaging.subscribeToTopic('payment');
+    await _firebaseMessaging.subscribeToTopic('info');
   }
 
   Future<void> initNotifications() async {

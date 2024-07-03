@@ -23,10 +23,10 @@ class TreasuryScreen extends StatefulWidget {
 class _TreasuryScreenState extends State<TreasuryScreen> {
   final TextEditingController _dateController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey();
-  ConfirmDuesModel? _unpaidCitizens;
-  ConfirmDuesModel? _paidCitizens;
-  ConfirmDuesModel? _unConfirmedCitizens;
-  ConfirmDuesModel? _confirmedCitizens;
+  ConfirmDues? _unpaidCitizens;
+  ConfirmDues? _paidCitizens;
+  ConfirmDues? _unConfirmedCitizens;
+  ConfirmDues? _confirmedCitizens;
   String _month = "";
   String _year = "";
   bool _loading = true;
@@ -84,7 +84,7 @@ class _TreasuryScreenState extends State<TreasuryScreen> {
   }
 
   void _animateNumber({
-    required ConfirmDuesModel citizens,
+    required ConfirmDues citizens,
     required String type,
   }) {
     Timer.periodic(const Duration(milliseconds: 20), (timer) {

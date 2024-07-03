@@ -16,7 +16,7 @@ class LoadingScreen extends StatefulWidget {
     this.fromNotification = false,
   });
 
-  final DuesModel dues;
+  final Dues dues;
   final bool isInfo;
   final bool fromNotification;
 
@@ -109,7 +109,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
               DuesDetail(dues: widget.dues, isInfo: widget.isInfo),
               Positioned(
                 top: _loading ? 150 : 120,
-                child: LottieBuilder.asset(
+                child: Lottie.asset(
                   _lottieAsset,
                   width: _loading
                       ? 150

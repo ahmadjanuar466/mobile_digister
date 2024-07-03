@@ -11,7 +11,7 @@ import 'package:dio/dio.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:toastification/toastification.dart';
 
-Future<List<BlockModel>> getBlocks() async {
+Future<List<Block>> getBlocks() async {
   try {
     final response = await dio.get(
       '/api/registrasi/blok',
@@ -21,9 +21,9 @@ Future<List<BlockModel>> getBlocks() async {
     );
 
     final data = response.data;
-    final List<BlockModel> blocks = [];
+    final List<Block> blocks = [];
     for (var item in data['data']) {
-      blocks.add(BlockModel.fromJson(item));
+      blocks.add(Block.fromJson(item));
     }
 
     return blocks;
@@ -32,7 +32,7 @@ Future<List<BlockModel>> getBlocks() async {
   }
 }
 
-Future<List<HousingModel>> getHousings() async {
+Future<List<Housing>> getHousings() async {
   try {
     final response = await dio.get(
       '/api/registrasi/perumahan',
@@ -42,9 +42,9 @@ Future<List<HousingModel>> getHousings() async {
     );
 
     final data = response.data;
-    final List<HousingModel> housings = [];
+    final List<Housing> housings = [];
     for (var item in data['data']) {
-      housings.add(HousingModel.fromJson(item));
+      housings.add(Housing.fromJson(item));
     }
 
     return housings;
@@ -53,7 +53,7 @@ Future<List<HousingModel>> getHousings() async {
   }
 }
 
-Future<List<SecurityModel>> getSecurity() async {
+Future<List<Security>> getSecurity() async {
   try {
     final response = await dio.get(
       '/api/warga/security',
@@ -63,9 +63,9 @@ Future<List<SecurityModel>> getSecurity() async {
     );
 
     final data = response.data;
-    final List<SecurityModel> securities = [];
+    final List<Security> securities = [];
     for (var item in data['data']) {
-      securities.add(SecurityModel.fromJson(item));
+      securities.add(Security.fromJson(item));
     }
 
     return securities;
@@ -74,7 +74,7 @@ Future<List<SecurityModel>> getSecurity() async {
   }
 }
 
-Future<List<CCTVModel>> getCCTV(String block) async {
+Future<List<CCTV>> getCCTV(String block) async {
   try {
     final response = await dio.post(
       '/api/warga/cctv',
@@ -85,9 +85,9 @@ Future<List<CCTVModel>> getCCTV(String block) async {
     );
 
     final data = response.data;
-    final List<CCTVModel> cctvs = [];
+    final List<CCTV> cctvs = [];
     for (var item in data['data']) {
-      cctvs.add(CCTVModel.fromJson(item));
+      cctvs.add(CCTV.fromJson(item));
     }
 
     return cctvs;
@@ -106,7 +106,7 @@ Future<List<CCTVModel>> getCCTV(String block) async {
   }
 }
 
-Future<List<InformationModel>> getInformations() async {
+Future<List<Information>> getInformations() async {
   try {
     final response = await dio.get(
       '/api/informasi',
@@ -116,13 +116,40 @@ Future<List<InformationModel>> getInformations() async {
     );
 
     final data = response.data;
-    final List<InformationModel> informations = [];
+    final List<Information> informations = [];
     for (var item in data['data']) {
-      informations.add(InformationModel.fromJson(item));
+      informations.add(Information.fromJson(item));
     }
 
     return informations;
   } on DioException catch (_) {
     return [];
+  }
+}
+
+Future<Information?> getInformationById(String id) async {
+  try {
+    final response = await dio.get(
+      '/api/informasi/$id',
+      options: Options(headers: {
+        'Authorization': 'Bearer ${localStorage.getItem('token')}'
+      }),
+    );
+
+    final data = response.data;
+
+    return Information.fromJson(data['data']);
+  } on DioException catch (error) {
+    final data = error.response?.data;
+
+    if (data != null) {
+      NotificationWidget.show(
+        title: 'Error!',
+        description: data['msg'],
+        type: ToastificationType.error,
+      );
+    }
+
+    return null;
   }
 }
