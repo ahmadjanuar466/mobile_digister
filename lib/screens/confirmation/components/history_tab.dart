@@ -32,6 +32,8 @@ class _HistoryTabState extends State<HistoryTab> {
     _duesHistory.clear();
     final dues = await duesHistory(body);
 
+    if (!mounted) return;
+
     if (dues.isNotEmpty) {
       setState(() {
         _isDataExist = true;
