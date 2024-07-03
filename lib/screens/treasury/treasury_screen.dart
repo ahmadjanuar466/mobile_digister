@@ -77,29 +77,37 @@ class _TreasuryScreenState extends State<TreasuryScreen> {
     }
 
     if (citizens != null) {
-      Timer.periodic(const Duration(milliseconds: 20), (timer) {
-        if (_totalUnpaid != citizens.total && type == 'unpaid') {
-          setState(() {
-            _totalUnpaid++;
-          });
-        } else if (_totalPaid != citizens.total && type == 'paid') {
-          setState(() {
-            _totalPaid++;
-          });
-        } else if (_totalUnconfirmed != citizens.total &&
-            type == 'unconfirmed') {
-          setState(() {
-            _totalUnconfirmed++;
-          });
-        } else if (_totalConfirmed != citizens.total && type == 'confirmed') {
-          setState(() {
-            _totalConfirmed++;
-          });
-        } else {
-          timer.cancel();
-        }
-      });
+      if (!mounted) return;
+
+      _animateNumber(citizens: citizens, type: type);
     }
+  }
+
+  void _animateNumber({
+    required ConfirmDuesModel citizens,
+    required String type,
+  }) {
+    Timer.periodic(const Duration(milliseconds: 20), (timer) {
+      if (_totalUnpaid != citizens.total && type == 'unpaid') {
+        setState(() {
+          _totalUnpaid++;
+        });
+      } else if (_totalPaid != citizens.total && type == 'paid') {
+        setState(() {
+          _totalPaid++;
+        });
+      } else if (_totalUnconfirmed != citizens.total && type == 'unconfirmed') {
+        setState(() {
+          _totalUnconfirmed++;
+        });
+      } else if (_totalConfirmed != citizens.total && type == 'confirmed') {
+        setState(() {
+          _totalConfirmed++;
+        });
+      } else {
+        timer.cancel();
+      }
+    });
   }
 
   void _getAllCitizens() {

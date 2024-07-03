@@ -13,15 +13,16 @@ class OnboardingDescription extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Aplikasi DIGISTER',
+          'DIGISTER',
           style: theme.textTheme.titleLarge!.copyWith(
-            fontSize: 35,
+            fontSize: 30,
             color: theme.colorScheme.onPrimary,
           ),
         ),
         Text(
-          "Aplikasi yang digunakan untuk memudahkan warga dalam melakukan layanan kemasyarakatan.",
-          style: theme.textTheme.titleLarge!.copyWith(
+          "Memudahkan anda dalam melakukan layanan kemasyarakatan.",
+          style: theme.textTheme.titleMedium!.copyWith(
+            fontSize: 18,
             color: theme.colorScheme.onPrimary,
           ),
         ),

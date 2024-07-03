@@ -1,4 +1,5 @@
 import 'package:digister/models/security_model.dart';
+import 'package:digister/routes/route_helper.dart';
 import 'package:digister/utils/image_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -24,12 +25,10 @@ List<MenuItem> menuItems = [
   MenuItem(
     title: "Iuran",
     imageAsset: ImageAssets.transactionImage,
-    onPressed: (BuildContext context, _) => Navigator.push(
+    onPressed: (BuildContext context, _) => RouteHelper.push(
       context,
-      PageTransition(
-        child: const ConfirmationScreen(),
-        type: PageTransitionType.rightToLeft,
-      ),
+      widget: const ConfirmationScreen(),
+      transitionType: PageTransitionType.rightToLeft,
     ),
   ),
   MenuItem(
@@ -46,124 +45,121 @@ List<MenuItem> menuItems = [
   MenuItem(
     title: "CCTV",
     imageAsset: ImageAssets.cctvImage,
-    onPressed: (BuildContext context, _) => Navigator.push(
+    onPressed: (BuildContext context, _) => RouteHelper.push(
       context,
-      PageTransition(
-        child: const CCTVScreen(canPop: true),
-        type: PageTransitionType.rightToLeft,
-      ),
+      widget: const CCTVScreen(canPop: true),
+      transitionType: PageTransitionType.rightToLeft,
     ),
   ),
   MenuItem(
     title: "Asik",
     imageAsset: ImageAssets.asikImage,
-    onPressed: (BuildContext context, _) => Navigator.push(
+    onPressed: (BuildContext context, _) => RouteHelper.push(
       context,
-      PageTransition(
-        child: const Scaffold(
-          body: NotFoundScreen(isMainScreen: false),
-        ),
-        type: PageTransitionType.rightToLeft,
+      widget: const Scaffold(
+        body: NotFoundScreen(isMainScreen: false),
       ),
+      transitionType: PageTransitionType.rightToLeft,
     ),
   ),
   MenuItem(
     title: "Air",
     imageAsset: ImageAssets.waterImage,
-    onPressed: (BuildContext context, _) => Navigator.push(
+    onPressed: (BuildContext context, _) => RouteHelper.push(
       context,
-      PageTransition(
-        child: const Scaffold(
-          body: NotFoundScreen(isMainScreen: false),
-        ),
-        type: PageTransitionType.rightToLeft,
+      widget: const Scaffold(
+        body: NotFoundScreen(isMainScreen: false),
       ),
+      transitionType: PageTransitionType.rightToLeft,
     ),
   ),
-  MenuItem(
+  const MenuItem(
     title: "Security",
     imageAsset: ImageAssets.guardImage,
-    onPressed: (BuildContext context, securities) {
-      showModalBottomSheet(
-        context: context,
-        showDragHandle: true,
-        backgroundColor: theme.colorScheme.primaryContainer,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        builder: (context) => SizedBox(
-          height: 300,
-          width: double.maxFinite,
-          child: Column(
-            children: securities!
-                .where((element) => element.isActive == "1")
-                .map(
-                  (item) => ListTile(
-                    leading: const CircleAvatar(
-                      radius: 25,
-                      backgroundImage: AssetImage(ImageAssets.guardImage),
-                    ),
-                    title: Text(
-                      item.name,
-                      style: const TextStyle(fontSize: 14),
-                    ),
-                    subtitle: Text(
-                      item.phoneNumber,
-                      style: const TextStyle(fontSize: 14),
-                    ),
-                    trailing: SizedBox(
-                      width: 100,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          IconButton(
-                            onPressed: () async {
-                              var phoneNumber = item.phoneNumber.substring(1);
-
-                              final Uri url = Uri.parse(
-                                "tel:+62$phoneNumber",
-                              );
-
-                              if (!await launchUrl(url)) {
-                                throw Exception("Could not launch $url");
-                              }
-                            },
-                            icon: const Icon(
-                              Icons.phone,
-                              color: Colors.green,
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () async {
-                              var phoneNumber = item.phoneNumber.substring(1);
-
-                              final Uri url = Uri.parse(
-                                "https://wa.me/62$phoneNumber",
-                              );
-
-                              if (!await launchUrl(url)) {
-                                throw Exception("Could not launch $url");
-                              }
-                            },
-                            child: SizedBox(
-                              width: 30,
-                              height: 30,
-                              child: Image.asset(
-                                "assets/images/whatsapp.png",
-                                width: 1000.0,
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                )
-                .toList(),
-          ),
-        ),
-      );
-    },
+    onPressed: _securitiesModal,
   ),
 ];
+
+void _securitiesModal(BuildContext context, List<SecurityModel>? securities) {
+  showModalBottomSheet(
+    context: context,
+    showDragHandle: true,
+    backgroundColor: theme.colorScheme.primaryContainer,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(16),
+    ),
+    builder: (context) => SizedBox(
+      height: 300,
+      width: double.maxFinite,
+      child: Column(
+        children: securities!
+            .where((element) => element.isActive == "1")
+            .map(
+              (item) => ListTile(
+                leading: const CircleAvatar(
+                  radius: 25,
+                  backgroundImage: AssetImage(ImageAssets.guardImage),
+                ),
+                title: Text(
+                  item.name,
+                  style: const TextStyle(fontSize: 14),
+                ),
+                subtitle: Text(
+                  item.phoneNumber,
+                  style: const TextStyle(fontSize: 14),
+                ),
+                trailing: SizedBox(
+                  width: 100,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        onPressed: () => _callSecurity(
+                          security: item,
+                          platform: "tel",
+                        ),
+                        icon: const Icon(
+                          Icons.phone,
+                          color: Colors.green,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () => _callSecurity(
+                          security: item,
+                          platform: 'wa',
+                        ),
+                        child: SizedBox(
+                          width: 30,
+                          height: 30,
+                          child: Image.asset(
+                            ImageAssets.whatsappImage,
+                            width: 1000.0,
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            )
+            .toList(),
+      ),
+    ),
+  );
+}
+
+void _callSecurity({
+  required SecurityModel security,
+  required String platform,
+}) async {
+  final phoneNumber = security.phoneNumber.substring(1);
+
+  final Uri url = Uri.parse(
+    platform == 'wa' ? "https://wa.me/62$phoneNumber" : "tel:+62$phoneNumber",
+  );
+
+  if (!await launchUrl(url)) {
+    throw Exception("Could not launch $url");
+  }
+}

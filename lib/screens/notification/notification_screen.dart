@@ -126,7 +126,21 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   )
                 ],
               )
-            : const EmptyData(title: 'Belum ada notifikasi yang masuk'),
+            : Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Text(
+                      'Notifikasi',
+                      style: theme.textTheme.titleLarge,
+                    ),
+                  ),
+                  const Spacer(),
+                  const EmptyData(title: 'Belum ada notifikasi yang masuk'),
+                  const Spacer(flex: 2),
+                ],
+              ),
       ),
     );
   }

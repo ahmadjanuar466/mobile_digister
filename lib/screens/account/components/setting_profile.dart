@@ -1,6 +1,9 @@
+import 'package:digister/routes/route_helper.dart';
+import 'package:digister/screens/profile/profile_screen.dart';
 import 'package:digister/utils/global.dart';
 import 'package:digister/utils/image_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 class SettingProfile extends StatelessWidget {
   const SettingProfile({super.key});
@@ -54,7 +57,11 @@ class SettingProfile extends StatelessWidget {
           SizedBox(
             width: double.maxFinite,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () => RouteHelper.push(
+                context,
+                widget: const ProfileScreen(),
+                transitionType: PageTransitionType.rightToLeft,
+              ),
               child: Text(
                 'Ubah profil',
                 style: theme.textTheme.titleSmall!.copyWith(
