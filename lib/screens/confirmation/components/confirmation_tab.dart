@@ -296,7 +296,9 @@ class _ConfirmationTabState extends State<ConfirmationTab> {
             if (_imageNull.isNotEmpty)
               Text(
                 _imageNull,
-                style: TextStyle(color: theme.colorScheme.error),
+                style: theme.textTheme.bodySmall!.copyWith(
+                  color: theme.colorScheme.error,
+                ),
               ),
             const SizedBox(height: 10),
             TextFormField(
