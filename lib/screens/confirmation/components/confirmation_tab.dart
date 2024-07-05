@@ -31,6 +31,7 @@ class _ConfirmationTabState extends State<ConfirmationTab> {
   final TextEditingController _monthController = TextEditingController();
   int _currentMonth = 0;
   String _currentYear = "";
+  String _imageNull = "";
   final List<DuesType> _duesList = [];
 
   @override
@@ -183,7 +184,14 @@ class _ConfirmationTabState extends State<ConfirmationTab> {
   }
 
   _handleSubmit() {
-    if (_formKey.currentState!.validate() && _image != null) {
+    if (_image == null) {
+      setState(() {
+        _imageNull = "Anda belum menyertakan bukti pembayaran";
+      });
+      return;
+    }
+
+    if (_formKey.currentState!.validate()) {
       final imageBytes = File(_image!.path).readAsBytesSync();
       final base64Image = base64Encode(imageBytes);
 
@@ -285,6 +293,11 @@ class _ConfirmationTabState extends State<ConfirmationTab> {
                 });
               },
             ),
+            if (_imageNull.isNotEmpty)
+              Text(
+                _imageNull,
+                style: TextStyle(color: theme.colorScheme.error),
+              ),
             const SizedBox(height: 10),
             TextFormField(
               controller: _ketController,
