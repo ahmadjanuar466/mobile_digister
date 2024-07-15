@@ -50,25 +50,25 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static String messagingId = dotenv.env['MESSAGING_ID'] as String;
-  static String projectId = dotenv.env['PROJECT_ID'] as String;
-  static String storageBucket = dotenv.env['STORAGE_BUCKET'] as String;
-  static String bundleId = dotenv.env['BUNDLE_ID'] as String;
+  static String _messagingId = dotenv.env['MESSAGING_ID'] as String;
+  static String _projectId = dotenv.env['PROJECT_ID'] as String;
+  static String _storageBucket = dotenv.env['STORAGE_BUCKET'] as String;
+  static String _bundleId = dotenv.env['BUNDLE_ID'] as String;
 
   static FirebaseOptions android = FirebaseOptions(
     apiKey: dotenv.env['ANDROID_API_KEY'] as String,
     appId: dotenv.env['ANDROID_APP_ID'] as String,
-    messagingSenderId: messagingId,
-    projectId: projectId,
-    storageBucket: storageBucket,
+    messagingSenderId: _messagingId,
+    projectId: _projectId,
+    storageBucket: _storageBucket,
   );
 
   static FirebaseOptions ios = FirebaseOptions(
     apiKey: dotenv.env['IOS_API_KEY'] as String,
     appId: dotenv.env['IOS_APP_ID'] as String,
-    messagingSenderId: messagingId,
-    projectId: projectId,
-    storageBucket: storageBucket,
-    iosBundleId: bundleId,
+    messagingSenderId: _messagingId,
+    projectId: _projectId,
+    storageBucket: _storageBucket,
+    iosBundleId: _bundleId,
   );
 }
