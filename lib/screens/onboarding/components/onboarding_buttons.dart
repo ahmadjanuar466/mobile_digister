@@ -1,5 +1,6 @@
 import 'package:digister/routes/route_helper.dart';
 import 'package:digister/screens/login/login_screen.dart';
+import 'package:digister/utils/size_util.dart';
 import 'package:digister/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -22,7 +23,7 @@ class OnboardingButtons extends StatelessWidget {
           shape: ButtonShape.curved,
           text: 'MULAI',
         ),
-        const SizedBox(height: 10),
+        SizedBox(height: 10.v),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

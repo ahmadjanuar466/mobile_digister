@@ -1,5 +1,6 @@
 import 'package:digister/utils/global.dart';
 import 'package:digister/utils/lottie_asset.dart';
+import 'package:digister/utils/size_util.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -20,7 +21,7 @@ class EmptyData extends StatelessWidget {
           Lottie.asset(
             LottieAssets.empty,
             repeat: false,
-            width: 120,
+            width: 120.adaptSize,
           ),
           Text(
             title,

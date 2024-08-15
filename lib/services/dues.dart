@@ -2,11 +2,10 @@ import 'dart:convert';
 
 import 'package:digister/models/dues_model.dart';
 import 'package:digister/models/dues_type_model.dart';
-import 'package:digister/utils/dio_config.dart';
-import 'package:digister/widgets/notification.dart';
+import 'package:digister/services/utils/dio_config.dart';
+import 'package:digister/services/utils/exception_handler.dart';
 import 'package:dio/dio.dart';
 import 'package:localstorage/localstorage.dart';
-import 'package:toastification/toastification.dart';
 
 Future<List<DuesType>> getDues() async {
   try {
@@ -24,8 +23,8 @@ Future<List<DuesType>> getDues() async {
     }
 
     return duesList;
-  } on DioException catch (_) {
-    return [];
+  } on DioException catch (error) {
+    return ExceptionHandler.falseException(error, returnValue: <DuesType>[]);
   }
 }
 
@@ -41,17 +40,7 @@ Future<bool> confirmDues(Map<String, dynamic> body) async {
 
     return true;
   } on DioException catch (error) {
-    final data = error.response?.data;
-
-    if (data != null) {
-      NotificationWidget.show(
-        title: 'Error!',
-        description: data['msg'],
-        type: ToastificationType.error,
-      );
-    }
-
-    return false;
+    return ExceptionHandler.falseException(error, returnValue: false);
   }
 }
 
@@ -67,17 +56,7 @@ Future<bool> validateDues(Map<String, dynamic> body) async {
 
     return true;
   } on DioException catch (error) {
-    final data = error.response?.data;
-
-    if (data != null) {
-      NotificationWidget.show(
-        title: 'Error!',
-        description: data['msg'],
-        type: ToastificationType.error,
-      );
-    }
-
-    return false;
+    return ExceptionHandler.falseException(error, returnValue: false);
   }
 }
 
@@ -98,8 +77,8 @@ Future<List<Dues>> duesHistory(Map<String, String> body) async {
     }
 
     return dues;
-  } on DioException catch (_) {
-    return [];
+  } on DioException catch (error) {
+    return ExceptionHandler.falseException(error, returnValue: <Dues>[]);
   }
 }
 
@@ -116,16 +95,6 @@ Future<Dues?> getDuesById(String id) async {
 
     return Dues.fromJson(data['data']);
   } on DioException catch (error) {
-    final data = error.response?.data;
-
-    if (data != null) {
-      NotificationWidget.show(
-        title: 'Error!',
-        description: data['msg'],
-        type: ToastificationType.error,
-      );
-    }
-
-    return null;
+    return ExceptionHandler.falseException(error, returnValue: null);
   }
 }

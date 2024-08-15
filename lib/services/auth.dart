@@ -2,13 +2,12 @@ import 'dart:convert';
 
 import 'package:digister/models/user_level_model.dart';
 import 'package:digister/models/user_model.dart';
-import 'package:digister/utils/dio_config.dart';
+import 'package:digister/services/utils/dio_config.dart';
+import 'package:digister/services/utils/exception_handler.dart';
 import 'package:digister/utils/global.dart';
 import 'package:digister/utils/jwt_decoder.dart';
-import 'package:digister/widgets/notification.dart';
 import 'package:dio/dio.dart';
 import 'package:localstorage/localstorage.dart';
-import 'package:toastification/toastification.dart';
 
 Future<bool> doRegister(Map<String, dynamic> body) async {
   try {
@@ -19,17 +18,7 @@ Future<bool> doRegister(Map<String, dynamic> body) async {
 
     return true;
   } on DioException catch (error) {
-    final data = error.response?.data;
-
-    if (data != null) {
-      NotificationWidget.show(
-        title: 'Error!',
-        description: data['msg'],
-        type: ToastificationType.error,
-      );
-    }
-
-    return false;
+    return ExceptionHandler.falseException(error, returnValue: false);
   }
 }
 
@@ -52,17 +41,7 @@ Future<bool> doLogin(Map<String, dynamic> body) async {
 
     return true;
   } on DioException catch (error) {
-    final data = error.response?.data;
-
-    if (data != null) {
-      NotificationWidget.show(
-        title: 'Error!',
-        description: data['msg'],
-        type: ToastificationType.error,
-      );
-    }
-
-    return false;
+    return ExceptionHandler.falseException(error, returnValue: false);
   }
 }
 
@@ -75,17 +54,7 @@ Future<bool> checkUserNIK(Map<String, String> body) async {
 
     return true;
   } on DioException catch (error) {
-    final data = error.response?.data;
-
-    if (data != null) {
-      NotificationWidget.show(
-        title: 'Error!',
-        description: data['msg'],
-        type: ToastificationType.error,
-      );
-    }
-
-    return false;
+    return ExceptionHandler.falseException(error, returnValue: false);
   }
 }
 
@@ -98,21 +67,11 @@ Future<bool> resetPassword(Map<String, String> body) async {
 
     return true;
   } on DioException catch (error) {
-    final data = error.response?.data;
-
-    if (data != null) {
-      NotificationWidget.show(
-        title: 'Error!',
-        description: data['msg'],
-        type: ToastificationType.error,
-      );
-    }
-
-    return false;
+    return ExceptionHandler.falseException(error, returnValue: false);
   }
 }
 
-Future<void> saveToken(String token) async {
+Future<bool> saveToken(String token) async {
   try {
     await dio.post(
       '/api/warga/token_user',
@@ -124,5 +83,9 @@ Future<void> saveToken(String token) async {
         'token': token,
       }),
     );
-  } on DioException catch (_) {}
+
+    return true;
+  } on DioException catch (error) {
+    return ExceptionHandler.falseException(error, returnValue: false);
+  }
 }

@@ -1,6 +1,7 @@
 import 'package:digister/screens/login/components/register_field.dart';
 import 'package:digister/utils/global.dart';
 import 'package:digister/utils/image_constants.dart';
+import 'package:digister/utils/size_util.dart';
 import 'package:flutter/material.dart';
 import 'package:digister/screens/login/components/login_field.dart';
 
@@ -30,14 +31,14 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: SafeArea(
         child: ListView(
-          padding: const EdgeInsets.all(16),
+          padding: EdgeInsets.all(16.h),
           children: [
-            SizedBox(height: !_isRegister ? 50 : 25),
+            SizedBox(height: !_isRegister ? 50.v : 25.v),
             Column(
               children: [
                 Image.asset(
                   ImageAssets.logoImage,
-                  width: 100,
+                  width: 100.adaptSize,
                 ),
                 Text(
                   'Digister',
@@ -45,10 +46,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 )
               ],
             ),
-            const SizedBox(height: 40),
+            SizedBox(height: 40.v),
             if (!_isRegister) const LoginField(),
             if (_isRegister) const RegisterField(),
-            const SizedBox(height: 10),
+            SizedBox(height: 10.v),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -61,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       _isRegister = !_isRegister;
                     });
                   },
-                  child: Text(!_isRegister ? 'Daftar disini' : 'Masuk disini'),
+                  child: Text(!_isRegister ? 'Buat disini' : 'Masuk disini'),
                 ),
               ],
             ),

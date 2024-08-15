@@ -1,3 +1,4 @@
+import 'package:digister/utils/size_util.dart';
 import 'package:flutter/material.dart';
 import 'package:toastification/toastification.dart';
 
@@ -25,7 +26,7 @@ class NotificationWidget {
             child: child,
           );
         },
-        borderRadius: BorderRadius.circular(12.0),
+        borderRadius: BorderRadius.circular(12.0.h),
         boxShadow: lowModeShadow,
         showProgressBar: true,
         dragToClose: true,

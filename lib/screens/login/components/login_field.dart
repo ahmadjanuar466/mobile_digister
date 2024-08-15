@@ -1,12 +1,14 @@
 import 'package:digister/routes/route_helper.dart';
+import 'package:digister/screens/security/home/home_screen.dart';
 import 'package:digister/services/auth.dart';
 import 'package:digister/utils/global.dart';
+import 'package:digister/utils/size_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:digister/screens/forgotPassword/forgot_password_screen.dart';
-import '../../main/main_screen.dart';
+import '../../basic/main/main_screen.dart';
 
 class LoginField extends StatefulWidget {
   const LoginField({super.key});
@@ -30,7 +32,7 @@ class _LoginFieldState extends State<LoginField> {
 
   void _handleLogin() async {
     if (_formKey.currentState!.validate()) {
-      showLoader(context, "Login. Mohon tunggu");
+      showLoader(context);
 
       final body = {
         'email': _emailController.text,
@@ -44,10 +46,23 @@ class _LoginFieldState extends State<LoginField> {
 
       if (login) {
         localStorage.setItem('isFirst', '0');
+
+        if (userLevel.userLevelName != 'Security') {
+          Future.delayed(const Duration(seconds: 1), () {
+            RouteHelper.pushAndRemoveUntil(
+              context,
+              widget: const MainScreen(),
+              transitionType: PageTransitionType.rightToLeft,
+            );
+          });
+
+          return;
+        }
+
         Future.delayed(const Duration(seconds: 1), () {
           RouteHelper.pushAndRemoveUntil(
             context,
-            widget: const MainScreen(),
+            widget: const HomeScreen(),
             transitionType: PageTransitionType.rightToLeft,
           );
         });
@@ -70,7 +85,7 @@ class _LoginFieldState extends State<LoginField> {
               ),
               validator: validator,
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10.v),
             TextFormField(
               controller: _passwordController,
               keyboardType: TextInputType.visiblePassword,
@@ -96,7 +111,7 @@ class _LoginFieldState extends State<LoginField> {
               .animate(interval: 100.ms)
               .fadeIn(duration: 200.ms, delay: 100.ms)
               .move(
-                begin: const Offset(-16, 0),
+                begin: Offset(-16.h, 0),
                 curve: Curves.easeOutQuad,
               ),
           Align(
@@ -112,17 +127,17 @@ class _LoginFieldState extends State<LoginField> {
               ),
             ),
           ),
-          const SizedBox(height: 10),
+          SizedBox(height: 10.v),
           SizedBox(
-            height: 45,
+            height: 45.v,
             child: ElevatedButton(
               onPressed: _handleLogin,
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.login_rounded),
-                  SizedBox(width: 4.0),
-                  Text('Masuk'),
+                  const Icon(Icons.login_rounded),
+                  SizedBox(width: 4.0.h),
+                  const Text('Masuk'),
                 ],
               ),
             ),

@@ -1,3 +1,4 @@
+import 'package:digister/utils/size_util.dart';
 import 'package:flutter/material.dart';
 import 'package:digister/screens/forgotPassword/components/nik_field.dart';
 import 'package:digister/screens/forgotPassword/components/password_field.dart';
@@ -42,14 +43,14 @@ class ForgotPasswordScreen extends StatelessWidget {
               });
             },
             child: Padding(
-              padding: const EdgeInsets.all(16),
+              padding: EdgeInsets.all(16.h),
               child: Column(
                 children: [
                   Text(
                     forgotPasswordModel.screenState['description'],
                     textAlign: TextAlign.justify,
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.v),
                   forgotPasswordModel.screenState['isChangingPassword']
                       ? Expanded(
                           child: PasswordField(nik: forgotPasswordModel.nik),

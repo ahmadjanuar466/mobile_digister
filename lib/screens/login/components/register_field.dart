@@ -1,10 +1,11 @@
 import 'package:digister/models/block_model.dart';
 import 'package:digister/models/housing_model.dart';
 import 'package:digister/routes/route_helper.dart';
-import 'package:digister/screens/main/main_screen.dart';
+import 'package:digister/screens/basic/main/main_screen.dart';
 import 'package:digister/services/auth.dart';
 import 'package:digister/services/housing.dart';
 import 'package:digister/utils/global.dart';
+import 'package:digister/utils/size_util.dart';
 import 'package:digister/widgets/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -105,7 +106,7 @@ class _RegisterFieldState extends State<RegisterField> {
 
       NotificationWidget.show(
         title: 'Success!',
-        description: 'Registrasi berhasil. Silahkan untuk login',
+        description: 'Registrasi berhasil. Silahkan login',
         type: ToastificationType.success,
       );
     }
@@ -126,7 +127,7 @@ class _RegisterFieldState extends State<RegisterField> {
               ),
               validator: validator,
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10.v),
             TextFormField(
               controller: _namaController,
               keyboardType: TextInputType.text,
@@ -136,7 +137,7 @@ class _RegisterFieldState extends State<RegisterField> {
               ),
               validator: validator,
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10.v),
             TextFormField(
               controller: _phoneController,
               keyboardType: TextInputType.phone,
@@ -145,9 +146,9 @@ class _RegisterFieldState extends State<RegisterField> {
               ),
               validator: validator,
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10.v),
             DropdownButtonFormField(
-              menuMaxHeight: 200,
+              menuMaxHeight: 200.v,
               dropdownColor: isDarkMode
                   ? theme.colorScheme.secondary
                   : theme.colorScheme.onPrimary,
@@ -169,9 +170,9 @@ class _RegisterFieldState extends State<RegisterField> {
               },
               validator: validator,
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10.v),
             DropdownButtonFormField(
-              menuMaxHeight: 200,
+              menuMaxHeight: 200.v,
               dropdownColor: isDarkMode
                   ? theme.colorScheme.secondary
                   : theme.colorScheme.onPrimary,
@@ -193,7 +194,7 @@ class _RegisterFieldState extends State<RegisterField> {
               },
               validator: validator,
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10.v),
             TextFormField(
               controller: _houseNumController,
               keyboardType: TextInputType.number,
@@ -202,7 +203,7 @@ class _RegisterFieldState extends State<RegisterField> {
               ),
               validator: validator,
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10.v),
             TextFormField(
               controller: _emailController,
               keyboardType: TextInputType.emailAddress,
@@ -211,7 +212,7 @@ class _RegisterFieldState extends State<RegisterField> {
               ),
               validator: validator,
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10.v),
             TextFormField(
               controller: _passwordController,
               keyboardType: TextInputType.visiblePassword,
@@ -237,20 +238,20 @@ class _RegisterFieldState extends State<RegisterField> {
               .animate(interval: 100.ms)
               .fadeIn(duration: 200.ms, delay: 100.ms)
               .move(
-                begin: const Offset(-16, 0),
+                begin: Offset(-16.h, 0),
                 curve: Curves.easeOutQuad,
               ),
-          const SizedBox(height: 20),
+          SizedBox(height: 20.v),
           SizedBox(
-            height: 45,
+            height: 45.v,
             child: ElevatedButton(
               onPressed: _handleRegister,
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.app_registration),
-                  SizedBox(width: 4.0),
-                  Text('Registrasi'),
+                  const Icon(Icons.app_registration),
+                  SizedBox(width: 4.0.h),
+                  const Text('Registrasi'),
                 ],
               ),
             ),

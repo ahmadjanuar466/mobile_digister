@@ -1,11 +1,12 @@
 import 'package:digister/models/security_model.dart';
 import 'package:digister/routes/route_helper.dart';
 import 'package:digister/utils/image_constants.dart';
+import 'package:digister/utils/size_util.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:digister/screens/404/not_found_screen.dart';
-import 'package:digister/screens/cctv/cctv_screen.dart';
-import 'package:digister/screens/confirmation/confirmation_screen.dart';
+import 'package:digister/screens/basic/404/not_found_screen.dart';
+import 'package:digister/screens/basic/cctv/cctv_screen.dart';
+import 'package:digister/screens/basic/confirmation/confirmation_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../utils/global.dart';
 
@@ -89,27 +90,27 @@ void _securitiesModal(BuildContext context, List<Security>? securities) {
       borderRadius: BorderRadius.circular(16),
     ),
     builder: (context) => SizedBox(
-      height: 300,
+      height: 300.v,
       width: double.maxFinite,
       child: Column(
         children: securities!
             .where((element) => element.isActive == "1")
             .map(
               (item) => ListTile(
-                leading: const CircleAvatar(
-                  radius: 25,
-                  backgroundImage: AssetImage(ImageAssets.guardImage),
+                leading: CircleAvatar(
+                  radius: 25.adaptSize,
+                  backgroundImage: const AssetImage(ImageAssets.guardImage),
                 ),
                 title: Text(
                   item.name,
-                  style: const TextStyle(fontSize: 14),
+                  style: TextStyle(fontSize: 14.fSize),
                 ),
                 subtitle: Text(
                   item.phoneNumber,
-                  style: const TextStyle(fontSize: 14),
+                  style: TextStyle(fontSize: 14.fSize),
                 ),
                 trailing: SizedBox(
-                  width: 100,
+                  width: 100.h,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -129,11 +130,11 @@ void _securitiesModal(BuildContext context, List<Security>? securities) {
                           platform: 'wa',
                         ),
                         child: SizedBox(
-                          width: 30,
-                          height: 30,
+                          width: 30.h,
+                          height: 30.v,
                           child: Image.asset(
                             ImageAssets.whatsappImage,
-                            width: 1000.0,
+                            width: 1000.0.h,
                             fit: BoxFit.contain,
                           ),
                         ),

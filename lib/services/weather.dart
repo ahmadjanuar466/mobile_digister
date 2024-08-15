@@ -1,5 +1,5 @@
 import 'package:digister/models/weather_model.dart';
-import 'package:digister/utils/dio_config.dart';
+import 'package:digister/services/utils/dio_config.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 

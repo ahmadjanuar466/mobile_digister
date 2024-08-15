@@ -5,7 +5,8 @@ import 'package:digister/models/information_model.dart';
 import 'package:digister/models/log_information_model.dart';
 import 'package:digister/services/dues.dart';
 import 'package:digister/services/housing.dart';
-import 'package:digister/utils/dio_config.dart';
+import 'package:digister/services/utils/dio_config.dart';
+import 'package:digister/services/utils/exception_handler.dart';
 import 'package:dio/dio.dart';
 import 'package:localstorage/localstorage.dart';
 
@@ -23,11 +24,11 @@ Future<List<LogInformation>> getLogs() async {
     Dues? dues;
     Information? information;
     for (var item in data['data']) {
-      if (item['id_konfirmasi_pembayaran'].isNotEmpty) {
+      if (item['id_konfirmasi_pembayaran'] != "") {
         dues = await getDuesById(item['id_konfirmasi_pembayaran']);
       }
 
-      if (item['id_informasi'].isNotEmpty) {
+      if (item['id_informasi'] != "") {
         information = await getInformationById(item['id_informasi']);
       }
 
@@ -40,7 +41,7 @@ Future<List<LogInformation>> getLogs() async {
   }
 }
 
-Future<void> updateLog(String id) async {
+Future<bool> updateLog(String id) async {
   try {
     await dio.post(
       '/api/log/read',
@@ -49,10 +50,14 @@ Future<void> updateLog(String id) async {
       }),
       data: jsonEncode({'id': id}),
     );
-  } on DioException catch (_) {}
+
+    return true;
+  } on DioException catch (error) {
+    return ExceptionHandler.falseException(error, returnValue: false);
+  }
 }
 
-Future<void> deleteLog(String id) async {
+Future<bool> deleteLog(String id) async {
   try {
     await dio.get(
       '/api/log/delete/$id',
@@ -60,5 +65,9 @@ Future<void> deleteLog(String id) async {
         'Authorization': 'Bearer ${localStorage.getItem('token')}'
       }),
     );
-  } on DioException catch (_) {}
+
+    return true;
+  } on DioException catch (error) {
+    return ExceptionHandler.falseException(error, returnValue: false);
+  }
 }

@@ -1,3 +1,4 @@
+import 'package:digister/utils/size_util.dart';
 import 'package:flutter/material.dart';
 
 class TextBetween extends StatelessWidget {
@@ -19,8 +20,8 @@ class TextBetween extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      margin: const EdgeInsets.only(
-        bottom: 10,
+      margin: EdgeInsets.only(
+        bottom: 10.v,
       ),
       padding: padding,
       child: Row(

@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:digister/main.dart';
-import 'package:digister/screens/announcement/announcement_detail_screen.dart';
-import 'package:digister/screens/confirmation/confirmation_screen.dart';
-import 'package:digister/screens/loading/loading_screen.dart';
+import 'package:digister/screens/basic/announcement/announcement_detail_screen.dart';
+import 'package:digister/screens/basic/confirmation/confirmation_screen.dart';
+import 'package:digister/screens/basic/loading/loading_screen.dart';
 import 'package:digister/services/auth.dart';
 import 'package:digister/services/dues.dart';
 import 'package:digister/services/housing.dart';

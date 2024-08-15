@@ -1,8 +1,8 @@
 import 'package:digister/models/user_level_model.dart';
 import 'package:digister/models/user_model.dart';
 import 'package:digister/themes/custom_theme.dart';
+import 'package:digister/utils/size_util.dart';
 import 'package:flutter/material.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:localstorage/localstorage.dart';
 import '../models/forgot_password_model.dart';
 
@@ -13,7 +13,16 @@ late User user;
 late UserLevel userLevel;
 List<dynamic> listSecurity = [];
 final ForgotPassword forgotPasswordModel = ForgotPassword();
-late String appVersion;
+
+void showInSnackBar(BuildContext context, String message) {
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    content: Text(
+      message,
+      style: theme.textTheme.titleSmall,
+      textAlign: TextAlign.justify,
+    ),
+  ));
+}
 
 String? validator(String? value) {
   if (value!.isEmpty || value == "") {
@@ -23,50 +32,57 @@ String? validator(String? value) {
   return null;
 }
 
-void showLoader(BuildContext context, String text) {
+void showLoader(BuildContext context) {
   showDialog(
     context: context,
     barrierDismissible: false,
-    builder: (context) {
-      return Dialog(
-        backgroundColor: isDarkMode
-            ? theme.colorScheme.secondary
-            : theme.colorScheme.onPrimary,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+    builder: (context) => PopScope(
+      canPop: false,
+      child: Dialog(
+        insetPadding: EdgeInsets.symmetric(horizontal: 100.h),
+        backgroundColor: theme.colorScheme.primaryContainer,
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.h)),
         child: Container(
-          padding: const EdgeInsets.all(16),
+          padding: EdgeInsets.all(12.h),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(12.h),
           ),
-          child: Column(
+          child: Row(
             mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              LoadingAnimationWidget.stretchedDots(
-                color: isDarkMode
-                    ? theme.colorScheme.onPrimary
-                    : theme.colorScheme.secondary,
-                size: 50,
+              SizedBox(
+                width: 25.h,
+                height: 25.v,
+                child: const CircularProgressIndicator(),
               ),
+              SizedBox(width: 10.h),
               Text(
-                text,
-                textAlign: TextAlign.center,
+                'Loading',
+                style: theme.textTheme.titleMedium,
               ),
             ],
           ),
         ),
-      );
-    },
+      ),
+    ),
   );
 }
 
 void showModalDialog(BuildContext context, Widget child) => showGeneralDialog(
       context: context,
       pageBuilder: (context, animation, secondaryAnimation) => child,
-      transitionBuilder: (context, a1, a2, child) => Transform.scale(
-        scale: Curves.easeInOut.transform(a1.value),
-        child: child,
-      ),
-      transitionDuration: const Duration(milliseconds: 500),
+      transitionBuilder: (context, a1, a2, child) {
+        final curvedValue = Curves.easeInOutBack.transform(a1.value) - 1.0;
+
+        return Transform(
+          transform: Matrix4.translationValues(0.0, curvedValue * 30, 0.0),
+          child: Opacity(
+            opacity: a1.value,
+            child: child,
+          ),
+        );
+      },
+      transitionDuration: const Duration(milliseconds: 250),
     );

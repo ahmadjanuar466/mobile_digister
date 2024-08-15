@@ -1,6 +1,6 @@
 import 'package:digister/firebase_options.dart';
 import 'package:digister/themes/custom_theme.dart';
-import 'package:digister/utils/global.dart';
+import 'package:digister/utils/size_util.dart';
 import 'package:digister/widgets/theme_switcher.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +8,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:localstorage/localstorage.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:digister/screens/splash/splash_screen.dart';
 import 'package:toastification/toastification.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -29,9 +28,6 @@ void main() async {
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  PackageInfo packageInfo = await PackageInfo.fromPlatform();
-  appVersion = packageInfo.version;
-
   runApp(ThemeSwitcher(child: const MyApp()));
 }
 
@@ -47,28 +43,30 @@ class MyApp extends StatelessWidget {
     timeago.setLocaleMessages('idShort', timeago.IdShortMessages());
     timeago.setLocaleMessages('id', timeago.IdMessages());
 
-    return ToastificationWrapper(
-      child: StreamBuilder<ThemeData>(
-        initialData: themeMode == null
-            ? MediaQuery.of(context).platformBrightness == Brightness.dark
-                ? CustomTheme.darkTheme
-                : CustomTheme.lightTheme
-            : themeMode == 'dark'
-                ? CustomTheme.darkTheme
-                : CustomTheme.lightTheme,
-        stream: ThemeSwitcher.of(context)!.streamController.stream,
-        builder: (context, snapshot) => MaterialApp(
-          title: 'Digister',
-          theme: snapshot.data,
-          navigatorKey: navigatorKey,
-          localizationsDelegates: const [
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
-          locale: const Locale("id"),
-          home: const SplashScreen(),
+    return Sizer(builder: (context, orientation, deviceType) {
+      return ToastificationWrapper(
+        child: StreamBuilder<ThemeData>(
+          initialData: themeMode == null
+              ? MediaQuery.of(context).platformBrightness == Brightness.dark
+                  ? CustomTheme.darkTheme
+                  : CustomTheme.lightTheme
+              : themeMode == 'dark'
+                  ? CustomTheme.darkTheme
+                  : CustomTheme.lightTheme,
+          stream: ThemeSwitcher.of(context)!.streamController.stream,
+          builder: (context, snapshot) => MaterialApp(
+            title: 'Digister',
+            theme: snapshot.data,
+            navigatorKey: navigatorKey,
+            localizationsDelegates: const [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
+            locale: const Locale("id"),
+            home: const SplashScreen(),
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

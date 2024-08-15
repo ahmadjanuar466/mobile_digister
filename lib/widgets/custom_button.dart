@@ -1,3 +1,4 @@
+import 'package:digister/utils/size_util.dart';
 import 'package:flutter/material.dart';
 
 enum ButtonShape {
@@ -31,7 +32,7 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 45,
+      height: 45.v,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
@@ -40,8 +41,8 @@ class CustomButton extends StatelessWidget {
         ),
         child: Text(
           text,
-          style: const TextStyle(
-            fontSize: 18,
+          style: TextStyle(
+            fontSize: 18.fSize,
           ),
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:digister/themes/custom_color_scheme.dart';
 import 'package:digister/themes/text_theme.dart';
+import 'package:digister/utils/size_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -15,14 +16,14 @@ class DarkTheme {
     scaffoldBackgroundColor: DarkColorTheme.background,
     buttonTheme: ButtonThemeData(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.h),
       ),
-      height: 50,
+      height: 50.v,
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: OutlinedButton.styleFrom(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(12.h),
         ),
         backgroundColor: DarkColorTheme.primary,
         foregroundColor: DarkColorTheme.onPrimary,
@@ -34,7 +35,7 @@ class DarkTheme {
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(12.h),
         ),
         side: BorderSide(color: LightColorTheme.primary),
         foregroundColor: LightColorTheme.primary,
@@ -46,7 +47,7 @@ class DarkTheme {
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(12.h),
         ),
       ),
     ),
@@ -80,9 +81,9 @@ class DarkTheme {
     ),
     inputDecorationTheme: InputDecorationTheme(
       alignLabelWithHint: true,
-      contentPadding: const EdgeInsets.symmetric(
-        vertical: 8.0,
-        horizontal: 2.0,
+      contentPadding: EdgeInsets.symmetric(
+        vertical: 8.0.v,
+        horizontal: 2.0.h,
       ),
       labelStyle: TextStyle(color: DarkColorTheme.onPrimary),
       iconColor: DarkColorTheme.onPrimary,
@@ -139,14 +140,14 @@ class LightTheme {
     scaffoldBackgroundColor: LightColorTheme.background,
     buttonTheme: ButtonThemeData(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.h),
       ),
-      height: 50,
+      height: 50.v,
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: OutlinedButton.styleFrom(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(12.h),
         ),
         backgroundColor: LightColorTheme.primary,
         foregroundColor: LightColorTheme.onPrimary,
@@ -158,7 +159,7 @@ class LightTheme {
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(12.h),
         ),
         side: BorderSide(color: LightColorTheme.primary),
         foregroundColor: LightColorTheme.primary,
@@ -170,7 +171,7 @@ class LightTheme {
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(12.h),
         ),
       ),
     ),

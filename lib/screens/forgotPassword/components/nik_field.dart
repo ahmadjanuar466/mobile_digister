@@ -22,7 +22,7 @@ class _NIKFieldState extends State<NIKField> {
 
   _handleCheckNIK() async {
     if (_formKey.currentState!.validate()) {
-      showLoader(context, "Memeriksa NIK");
+      showLoader(context);
 
       final nikExist = await checkUserNIK({'nik': _nikController.text});
 

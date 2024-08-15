@@ -5,7 +5,8 @@ import 'package:digister/models/cctv_model.dart';
 import 'package:digister/models/housing_model.dart';
 import 'package:digister/models/information_model.dart';
 import 'package:digister/models/security_model.dart';
-import 'package:digister/utils/dio_config.dart';
+import 'package:digister/services/utils/dio_config.dart';
+import 'package:digister/services/utils/exception_handler.dart';
 import 'package:digister/widgets/notification.dart';
 import 'package:dio/dio.dart';
 import 'package:localstorage/localstorage.dart';
@@ -27,8 +28,8 @@ Future<List<Block>> getBlocks() async {
     }
 
     return blocks;
-  } on DioException catch (_) {
-    return [];
+  } on DioException catch (error) {
+    return ExceptionHandler.falseException(error, returnValue: <Block>[]);
   }
 }
 
@@ -69,8 +70,8 @@ Future<List<Security>> getSecurity() async {
     }
 
     return securities;
-  } on DioException catch (_) {
-    return [];
+  } on DioException catch (error) {
+    return ExceptionHandler.falseException(error, returnValue: <Security>[]);
   }
 }
 

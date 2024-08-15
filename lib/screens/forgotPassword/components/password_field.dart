@@ -1,6 +1,9 @@
 import 'package:digister/services/auth.dart';
+import 'package:digister/utils/size_util.dart';
+import 'package:digister/widgets/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:digister/widgets/custom_button.dart';
+import 'package:toastification/toastification.dart';
 import '../../../utils/global.dart';
 
 class PasswordField extends StatefulWidget {
@@ -29,7 +32,7 @@ class _PasswordFieldState extends State<PasswordField> {
 
   _handleChangePassword() async {
     if (_formKey.currentState!.validate()) {
-      showLoader(context, "Merubah password");
+      showLoader(context);
 
       final passwordReset = await resetPassword({
         'nik': widget.nik,
@@ -40,6 +43,12 @@ class _PasswordFieldState extends State<PasswordField> {
       Navigator.pop(context);
 
       if (passwordReset) {
+        NotificationWidget.show(
+          title: 'Ubah password',
+          description: 'Password berhasil dirubah.',
+          type: ToastificationType.success,
+        );
+
         forgotPasswordModel.changeState({
           "title": "Lupa Sandi",
           "description":
@@ -80,7 +89,7 @@ class _PasswordFieldState extends State<PasswordField> {
             ),
             validator: validator,
           ),
-          const SizedBox(height: 10),
+          SizedBox(height: 10.v),
           TextFormField(
             controller: _confirmPasswordController,
             keyboardType: TextInputType.visiblePassword,
