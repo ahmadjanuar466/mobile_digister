@@ -74,7 +74,7 @@ class DarkTheme {
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: DarkColorTheme.background,
       selectedItemColor: DarkColorTheme.primary,
-      unselectedItemColor: DarkColorTheme.onPrimary.withOpacity(0.4),
+      unselectedItemColor: DarkColorTheme.onPrimary.withValues(alpha: 0.4),
       showSelectedLabels: true,
       showUnselectedLabels: true,
       type: BottomNavigationBarType.fixed,
@@ -124,12 +124,12 @@ class DarkTheme {
       textColor: DarkColorTheme.onPrimary,
       iconColor: DarkColorTheme.onPrimary,
     ),
-    tabBarTheme: TabBarTheme(
+    tabBarTheme: TabBarThemeData(
       indicatorSize: TabBarIndicatorSize.tab,
-      unselectedLabelColor: DarkColorTheme.onPrimary.withOpacity(0.4),
-      dividerColor: DarkColorTheme.onPrimary.withOpacity(0.5),
+      unselectedLabelColor: DarkColorTheme.onPrimary.withValues(alpha: 0.4),
+      dividerColor: DarkColorTheme.onPrimary.withValues(alpha: 0.5),
     ),
-    dialogBackgroundColor: DarkColorTheme.background,
+    dialogTheme: DialogThemeData(backgroundColor: DarkColorTheme.background),
   );
 }
 
@@ -198,7 +198,7 @@ class LightTheme {
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: LightColorTheme.background,
       selectedItemColor: LightColorTheme.primary,
-      unselectedItemColor: LightColorTheme.secondary.withOpacity(0.4),
+      unselectedItemColor: LightColorTheme.secondary.withValues(alpha: 0.4),
       showSelectedLabels: true,
       showUnselectedLabels: true,
       type: BottomNavigationBarType.fixed,
@@ -233,9 +233,9 @@ class LightTheme {
         },
       ),
     ),
-    dividerColor: LightColorTheme.secondary.withOpacity(0.4),
+    dividerColor: LightColorTheme.secondary.withValues(alpha: 0.4),
     dividerTheme: DividerThemeData(
-      color: LightColorTheme.secondary.withOpacity(0.4),
+      color: LightColorTheme.secondary.withValues(alpha: 0.4),
     ),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       shape: const CircleBorder(),
@@ -248,13 +248,13 @@ class LightTheme {
       textColor: LightColorTheme.secondary,
       iconColor: LightColorTheme.secondary,
     ),
-    tabBarTheme: TabBarTheme(
+    tabBarTheme: TabBarThemeData(
       indicatorSize: TabBarIndicatorSize.tab,
-      unselectedLabelColor: LightColorTheme.secondary.withOpacity(0.4),
-      dividerColor: LightColorTheme.secondary.withOpacity(0.4),
+      unselectedLabelColor: LightColorTheme.secondary.withValues(alpha: 0.4),
+      dividerColor: LightColorTheme.secondary.withValues(alpha: 0.4),
     ),
-    dialogBackgroundColor: DarkColorTheme.onPrimary,
-    dialogTheme: DialogTheme(
+    dialogTheme: DialogThemeData(
+      backgroundColor: DarkColorTheme.onPrimary,
       titleTextStyle: TextThemeStyle.textTheme.titleMedium!.copyWith(
         color: LightColorTheme.secondary,
       ),

@@ -30,7 +30,7 @@ class AnnouncementDetailScreen extends StatelessWidget {
       ),
       body: PopScope(
         canPop: fromNotification,
-        onPopInvoked: (didPop) {
+        onPopInvokedWithResult: (didPop, _) {
           if (didPop) return;
 
           RouteHelper.pop(context);

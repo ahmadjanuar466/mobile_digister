@@ -59,7 +59,7 @@ class _ConfirmationTabState extends State<ConfirmationTab> {
     });
   }
 
-  _imageFromGallery() async {
+  void _imageFromGallery() async {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
 
     if (image != null) {
@@ -70,7 +70,7 @@ class _ConfirmationTabState extends State<ConfirmationTab> {
     }
   }
 
-  _imageFromCamera() async {
+  void _imageFromCamera() async {
     final XFile? image = await _picker.pickImage(source: ImageSource.camera);
 
     if (image != null) {
@@ -81,7 +81,7 @@ class _ConfirmationTabState extends State<ConfirmationTab> {
     }
   }
 
-  _showImageDetail(XFile file) {
+  void _showImageDetail(XFile file) {
     showModalDialog(
       context,
       Dialog(
@@ -93,7 +93,7 @@ class _ConfirmationTabState extends State<ConfirmationTab> {
     );
   }
 
-  _showDatePicker() async {
+  void _showDatePicker() async {
     DateTime? pickedDate = await showDatePicker(
       context: context,
       initialEntryMode: DatePickerEntryMode.calendarOnly,
@@ -128,7 +128,7 @@ class _ConfirmationTabState extends State<ConfirmationTab> {
     }
   }
 
-  _showMonthPicker() async {
+  void _showMonthPicker() async {
     final pickedMonth = await showMonthPicker(
       context: context,
       initialDate: DateTime.now(),
@@ -164,7 +164,7 @@ class _ConfirmationTabState extends State<ConfirmationTab> {
     }
   }
 
-  _showBottomSheet() {
+  void _showBottomSheet() {
     showModalBottomSheet<void>(
       context: context,
       showDragHandle: true,
@@ -184,7 +184,7 @@ class _ConfirmationTabState extends State<ConfirmationTab> {
     );
   }
 
-  _handleSubmit() {
+  void _handleSubmit() {
     if (_image == null) {
       setState(() {
         _imageNull = "Anda belum menyertakan bukti pembayaran";

@@ -4,7 +4,7 @@ import 'package:digister/models/user_level_model.dart';
 import 'package:digister/models/user_model.dart';
 import 'package:digister/routes/route_helper.dart';
 import 'package:digister/screens/login/login_screen.dart';
-import 'package:digister/screens/security/home/home_screen.dart';
+import 'package:digister/screens/security/main/main_screen.dart' as security;
 import 'package:digister/utils/image_constants.dart';
 import 'package:digister/utils/jwt_decoder.dart';
 import 'package:digister/utils/size_util.dart';
@@ -13,7 +13,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:digister/screens/basic/main/main_screen.dart';
+import 'package:digister/screens/basic/main/main_screen.dart' as basic;
 import 'package:digister/screens/onboarding/onboarding_screen.dart';
 import 'package:digister/utils/global.dart';
 
@@ -63,7 +63,7 @@ class SplashScreen extends StatelessWidget {
     if (userLevel.userLevelName != 'Security') {
       RouteHelper.pushReplacement(
         context,
-        widget: const MainScreen(),
+        widget: const basic.MainScreen(),
         transitionType: PageTransitionType.rightToLeft,
       );
 
@@ -72,7 +72,7 @@ class SplashScreen extends StatelessWidget {
 
     RouteHelper.pushReplacement(
       context,
-      widget: const HomeScreen(),
+      widget: const security.MainScreen(),
       transitionType: PageTransitionType.rightToLeft,
     );
   }

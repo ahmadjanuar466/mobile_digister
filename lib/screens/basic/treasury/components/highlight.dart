@@ -24,12 +24,12 @@ class Highlight extends StatelessWidget {
             ? theme.colorScheme.primaryContainer
             : theme.colorScheme.onPrimary,
         border: Border.all(
-          color: theme.colorScheme.onPrimary.withOpacity(0.3),
+          color: theme.colorScheme.onPrimary.withValues(alpha: .3),
         ),
         borderRadius: BorderRadius.circular(20.h),
         boxShadow: [
           BoxShadow(
-            color: theme.colorScheme.secondary.withOpacity(0.1),
+            color: theme.colorScheme.secondary.withValues(alpha: .1),
             offset: Offset(4.h, 5.v),
             blurRadius: 9,
             spreadRadius: 0,

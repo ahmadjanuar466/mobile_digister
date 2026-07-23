@@ -107,7 +107,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         leading: CircleAvatar(
                           radius: 25.adaptSize,
                           backgroundColor:
-                              theme.colorScheme.primary.withOpacity(0.6),
+                              theme.colorScheme.primary.withValues(alpha: 0.6),
                           backgroundImage: const ExactAssetImage(
                             ImageAssets.infoNotifImage,
                           ),

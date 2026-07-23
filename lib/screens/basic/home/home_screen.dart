@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _getWeather() async {
     Position position = await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high,
+      locationSettings: AndroidSettings(),
     );
 
     final weather = await getWeahter(

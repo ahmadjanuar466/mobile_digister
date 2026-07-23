@@ -115,8 +115,8 @@ class _AccountScreenState extends State<AccountScreen> {
             'Versi $_appVersion',
             style: theme.textTheme.bodySmall!.copyWith(
               color: isDarkMode
-                  ? theme.colorScheme.onPrimary.withOpacity(0.5)
-                  : theme.colorScheme.secondary.withOpacity(0.5),
+                  ? theme.colorScheme.onPrimary.withValues(alpha: 0.5)
+                  : theme.colorScheme.secondary.withValues(alpha: 0.5),
             ),
           ),
         ),

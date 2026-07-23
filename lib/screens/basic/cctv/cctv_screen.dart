@@ -6,7 +6,7 @@ import 'package:digister/services/housing.dart';
 import 'package:digister/utils/global.dart';
 import 'package:digister/utils/size_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_vlc_player/flutter_vlc_player.dart';
+import 'package:flutter_vlc_player_16kb/flutter_vlc_player.dart';
 import 'package:page_transition/page_transition.dart';
 
 class CCTVScreen extends StatefulWidget {
@@ -89,7 +89,7 @@ class _CCTVScreenState extends State<CCTVScreen> {
       ),
       body: PopScope(
         canPop: widget.canPop,
-        onPopInvoked: (didPop) {
+        onPopInvokedWithResult: (didPop, result) {
           if (didPop) return;
 
           RouteHelper.pushAndRemoveUntil(

@@ -30,7 +30,7 @@ class _PasswordFieldState extends State<PasswordField> {
     super.dispose();
   }
 
-  _handleChangePassword() async {
+  void _handleChangePassword() async {
     if (_formKey.currentState!.validate()) {
       showLoader(context);
 

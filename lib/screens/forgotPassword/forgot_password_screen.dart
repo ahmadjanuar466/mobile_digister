@@ -34,7 +34,7 @@ class ForgotPasswordScreen extends StatelessWidget {
             title: Text(forgotPasswordModel.screenState['title']),
           ),
           body: PopScope(
-            onPopInvoked: (didPop) {
+            onPopInvokedWithResult: (didPop, _) {
               forgotPasswordModel.changeState({
                 "title": "Lupa Sandi",
                 "description":

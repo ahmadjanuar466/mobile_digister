@@ -108,199 +108,195 @@ class _HomeScreenState extends State<HomeScreen> {
     isDarkMode = theme.brightness == Brightness.dark;
 
     if (_todayPresence == null) {
-      return const Scaffold(
-        body: Center(
-          child: CircularProgressIndicator(),
-        ),
+      return const Center(
+        child: CircularProgressIndicator(),
       );
     }
 
-    return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            width: double.maxFinite,
-            height: 200.v,
-            color: theme.colorScheme.primary,
-          ),
-          SafeArea(
-            child: ListView(
-              padding: EdgeInsets.all(16.h),
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Stack(
+      children: [
+        Container(
+          width: double.maxFinite,
+          height: 200.v,
+          color: theme.colorScheme.primary,
+        ),
+        SafeArea(
+          child: ListView(
+            padding: EdgeInsets.all(16.h),
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('Hi,'),
+                      Text(user.nama),
+                    ],
+                  ),
+                  Text(
+                    '$_hours:$_minutes',
+                    style: theme.textTheme.titleLarge!.copyWith(
+                      fontSize: 28.fSize,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20.v),
+              Container(
+                width: double.maxFinite,
+                padding: EdgeInsets.all(16.h),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.h),
+                  color: theme.colorScheme.primaryContainer,
+                  border: isDarkMode
+                      ? Border.all(color: theme.colorScheme.onPrimary)
+                      : null,
+                  boxShadow: [
+                    BoxShadow(
+                      color: theme.colorScheme.secondary.withValues(alpha: 0.1),
+                      offset: const Offset(4, 5),
+                      blurRadius: 9,
+                      spreadRadius: 0,
+                    )
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text('Hi,'),
-                        Text(user.nama),
+                        Text(
+                          DateFormat('d MMMM yyyy', 'id')
+                              .format(DateTime.now()),
+                          style: theme.textTheme.titleMedium,
+                        ),
+                        Text(
+                          'Presensi hari ini',
+                          style: theme.textTheme.bodySmall,
+                        ),
                       ],
                     ),
-                    Text(
-                      '$_hours:$_minutes',
-                      style: theme.textTheme.titleLarge!.copyWith(
-                        fontSize: 28.fSize,
-                      ),
+                    SizedBox(height: 20.v),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            children: [
+                              Text(
+                                'Masuk',
+                                style: theme.textTheme.titleMedium,
+                              ),
+                              Text(
+                                _todayPresence?.checkin ?? '--:--',
+                                style: theme.textTheme.titleLarge!.copyWith(
+                                  fontSize: 32.fSize,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              Text(
+                                'Pulang',
+                                style: theme.textTheme.titleMedium,
+                              ),
+                              Text(
+                                _todayPresence?.checkout ?? '--:--',
+                                style: theme.textTheme.titleLarge!.copyWith(
+                                  fontSize: 32.fSize,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
+                    if (_todayPresence!.checkout == null)
+                      SizedBox(height: 20.v),
+                    if (_todayPresence!.checkout == null)
+                      SizedBox(
+                        width: double.maxFinite,
+                        height: 45.v,
+                        child: ElevatedButton(
+                          onPressed: _doPresence,
+                          child: Text(
+                            _todayPresence!.checkin == null
+                                ? 'Masuk'
+                                : 'Pulang',
+                          ),
+                        ),
+                      ),
                   ],
                 ),
-                SizedBox(height: 20.v),
-                Container(
-                  width: double.maxFinite,
-                  padding: EdgeInsets.all(16.h),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20.h),
-                    color: theme.colorScheme.primaryContainer,
-                    border: isDarkMode
-                        ? Border.all(color: theme.colorScheme.onPrimary)
-                        : null,
-                    boxShadow: [
-                      BoxShadow(
-                        color: theme.colorScheme.secondary.withOpacity(0.1),
-                        offset: const Offset(4, 5),
-                        blurRadius: 9,
-                        spreadRadius: 0,
-                      )
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            DateFormat('d MMMM yyyy', 'id')
-                                .format(DateTime.now()),
-                            style: theme.textTheme.titleMedium,
-                          ),
-                          Text(
-                            'Presensi hari ini',
-                            style: theme.textTheme.bodySmall,
-                          ),
-                        ],
+              ),
+              SizedBox(height: 20.v),
+              const Text('Riwayat kehadiran'),
+              ListenableBuilder(
+                  listenable: _presenceData,
+                  builder: (context, child) {
+                    return TableCalendar(
+                      firstDay: DateTime(DateTime.now().year, 1, 1),
+                      lastDay: DateTime(DateTime.now().year, 12, 31),
+                      focusedDay: _selectedDay,
+                      locale: 'id',
+                      headerStyle: const HeaderStyle(
+                        formatButtonVisible: false,
+                        titleCentered: true,
                       ),
-                      SizedBox(height: 20.v),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Column(
-                              children: [
-                                Text(
-                                  'Masuk',
-                                  style: theme.textTheme.titleMedium,
-                                ),
-                                Text(
-                                  _todayPresence?.checkin ?? '--:--',
-                                  style: theme.textTheme.titleLarge!.copyWith(
-                                    fontSize: 32.fSize,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            child: Column(
-                              children: [
-                                Text(
-                                  'Pulang',
-                                  style: theme.textTheme.titleMedium,
-                                ),
-                                Text(
-                                  _todayPresence?.checkout ?? '--:--',
-                                  style: theme.textTheme.titleLarge!.copyWith(
-                                    fontSize: 32.fSize,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+                      calendarStyle: CalendarStyle(
+                        todayDecoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: theme.colorScheme.primary,
+                        ),
+                        selectedDecoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color:
+                              theme.colorScheme.primary.withValues(alpha: 0.8),
+                        ),
                       ),
-                      if (_todayPresence!.checkout == null)
-                        SizedBox(height: 20.v),
-                      if (_todayPresence!.checkout == null)
-                        SizedBox(
-                          width: double.maxFinite,
-                          height: 45.v,
-                          child: ElevatedButton(
-                            onPressed: _doPresence,
-                            child: Text(
-                              _todayPresence!.checkin == null
-                                  ? 'Masuk'
-                                  : 'Pulang',
-                            ),
-                          ),
-                        ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 20.v),
-                const Text('Riwayat kehadiran'),
-                ListenableBuilder(
-                    listenable: _presenceData,
-                    builder: (context, child) {
-                      return TableCalendar(
-                        firstDay: DateTime(DateTime.now().year, 1, 1),
-                        lastDay: DateTime(DateTime.now().year, 12, 31),
-                        focusedDay: _selectedDay,
-                        locale: 'id',
-                        headerStyle: const HeaderStyle(
-                          formatButtonVisible: false,
-                          titleCentered: true,
-                        ),
-                        calendarStyle: CalendarStyle(
-                          todayDecoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: theme.colorScheme.primary,
-                          ),
-                          selectedDecoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: theme.colorScheme.primary.withOpacity(0.8),
-                          ),
-                        ),
-                        daysOfWeekStyle: DaysOfWeekStyle(
-                          weekendStyle:
-                              TextStyle(color: theme.colorScheme.error),
-                        ),
-                        selectedDayPredicate: (day) =>
-                            isSameDay(_selectedDay, day),
-                        onDaySelected: (selectedDay, focusedDay) {
-                          if (!isSameDay(_selectedDay, selectedDay)) {
-                            setState(() {
-                              _selectedDay = selectedDay;
-                            });
+                      daysOfWeekStyle: DaysOfWeekStyle(
+                        weekendStyle: TextStyle(color: theme.colorScheme.error),
+                      ),
+                      selectedDayPredicate: (day) =>
+                          isSameDay(_selectedDay, day),
+                      onDaySelected: (selectedDay, focusedDay) {
+                        if (!isSameDay(_selectedDay, selectedDay)) {
+                          setState(() {
+                            _selectedDay = selectedDay;
+                          });
+                        }
+                      },
+                      calendarBuilders: CalendarBuilders(
+                        defaultBuilder: (context, day, focusedDay) {
+                          if (_presenceData.item.containsKey(day)) {
+                            return Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Text(day.day.toString()),
+                                Align(
+                                  alignment: Alignment.bottomRight,
+                                  child: _presenceData.item[day]!
+                                      ? const Icon(Icons.check,
+                                          color: Colors.green)
+                                      : const Icon(Icons.close,
+                                          color: Colors.red),
+                                )
+                              ],
+                            );
                           }
+                          return null;
                         },
-                        calendarBuilders: CalendarBuilders(
-                          defaultBuilder: (context, day, focusedDay) {
-                            if (_presenceData.item.containsKey(day)) {
-                              return Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  Text(day.day.toString()),
-                                  Align(
-                                    alignment: Alignment.bottomRight,
-                                    child: _presenceData.item[day]!
-                                        ? const Icon(Icons.check,
-                                            color: Colors.green)
-                                        : const Icon(Icons.close,
-                                            color: Colors.red),
-                                  )
-                                ],
-                              );
-                            }
-                            return null;
-                          },
-                        ),
-                      );
-                    })
-              ],
-            ),
+                      ),
+                    );
+                  })
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

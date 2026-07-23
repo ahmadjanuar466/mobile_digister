@@ -96,7 +96,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
       backgroundColor: !isDarkMode ? Colors.grey.shade100 : null,
       body: PopScope(
         canPop: !widget.fromNotification,
-        onPopInvoked: (didPop) {
+        onPopInvokedWithResult: (didPop, _) {
           if (didPop) return;
 
           RouteHelper.pop(context);

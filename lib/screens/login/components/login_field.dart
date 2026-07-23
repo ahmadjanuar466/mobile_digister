@@ -1,5 +1,7 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:digister/routes/route_helper.dart';
-import 'package:digister/screens/security/home/home_screen.dart';
+import 'package:digister/screens/security/main/main_screen.dart' as security;
 import 'package:digister/services/auth.dart';
 import 'package:digister/utils/global.dart';
 import 'package:digister/utils/size_util.dart';
@@ -8,7 +10,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:digister/screens/forgotPassword/forgot_password_screen.dart';
-import '../../basic/main/main_screen.dart';
+import '../../basic/main/main_screen.dart' as basic;
 
 class LoginField extends StatefulWidget {
   const LoginField({super.key});
@@ -41,7 +43,6 @@ class _LoginFieldState extends State<LoginField> {
 
       final login = await doLogin(body);
 
-      // ignore: use_build_context_synchronously
       Navigator.pop(context);
 
       if (login) {
@@ -51,7 +52,7 @@ class _LoginFieldState extends State<LoginField> {
           Future.delayed(const Duration(seconds: 1), () {
             RouteHelper.pushAndRemoveUntil(
               context,
-              widget: const MainScreen(),
+              widget: const basic.MainScreen(),
               transitionType: PageTransitionType.rightToLeft,
             );
           });
@@ -62,7 +63,7 @@ class _LoginFieldState extends State<LoginField> {
         Future.delayed(const Duration(seconds: 1), () {
           RouteHelper.pushAndRemoveUntil(
             context,
-            widget: const HomeScreen(),
+            widget: const security.MainScreen(),
             transitionType: PageTransitionType.rightToLeft,
           );
         });

@@ -1,5 +1,6 @@
 import 'package:digister/screens/basic/message/message_screen.dart';
 import 'package:digister/services/firebase_api.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:digister/screens/basic/account/account_screen.dart';
 import 'package:digister/screens/basic/home/home_screen.dart';
@@ -27,7 +28,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
-    FirebaseApi().initNotifications();
+    if (!kIsWeb) FirebaseApi().initNotifications();
   }
 
   void _onItemTapped(int index) {
@@ -42,15 +43,11 @@ class _MainScreenState extends State<MainScreen> {
     isDarkMode = theme.brightness == Brightness.dark;
 
     return Scaffold(
-      body: SafeArea(
-        child: _listScreen[_selectedIndex],
-      ),
+      body: SafeArea(child: _listScreen[_selectedIndex]),
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(
-              _selectedIndex == 0 ? Icons.home : Icons.home_outlined,
-            ),
+            icon: Icon(_selectedIndex == 0 ? Icons.home : Icons.home_outlined),
             label: 'Beranda',
           ),
           BottomNavigationBarItem(
@@ -62,9 +59,7 @@ class _MainScreenState extends State<MainScreen> {
           if (userLevel.userLevelName == "Bendahara" ||
               userLevel.userLevelName == 'Admin')
             const BottomNavigationBarItem(
-              icon: Icon(
-                Icons.balance_rounded,
-              ),
+              icon: Icon(Icons.balance_rounded),
               label: 'Bendahara',
             ),
           BottomNavigationBarItem(

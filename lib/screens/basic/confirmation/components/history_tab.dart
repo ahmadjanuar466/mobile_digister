@@ -23,7 +23,7 @@ class _HistoryTabState extends State<HistoryTab> {
     _getDuesHistory();
   }
 
-  _getDuesHistory() async {
+  Future<void> _getDuesHistory() async {
     final body = {
       "nik": user.nik,
       "pembayaran_thn": DateTime.now().year.toString(),

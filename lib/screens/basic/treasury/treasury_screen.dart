@@ -51,10 +51,7 @@ class _TreasuryScreenState extends State<TreasuryScreen> {
   }
 
   void _getCitizens({required String uri, required String type}) async {
-    final citizens = await getCitizens(uri, {
-      'bln': _month,
-      'thn': _year,
-    });
+    final citizens = await getCitizens(uri, {'bln': _month, 'thn': _year});
 
     if (!mounted) return;
 
@@ -91,10 +88,7 @@ class _TreasuryScreenState extends State<TreasuryScreen> {
     }
   }
 
-  void _animateNumber({
-    required ConfirmDues citizens,
-    required String type,
-  }) {
+  void _animateNumber({required ConfirmDues citizens, required String type}) {
     Timer.periodic(const Duration(milliseconds: 20), (timer) {
       if (_totalUnpaid != citizens.total && type == 'unpaid') {
         setState(() {
@@ -135,15 +129,16 @@ class _TreasuryScreenState extends State<TreasuryScreen> {
       builder: (context, child) {
         return Theme(
           data: theme.copyWith(
-            colorScheme: isDarkMode
-                ? ColorScheme.dark(
-                    primary: theme.colorScheme.primary,
-                    onPrimary: theme.colorScheme.onPrimary,
-                  )
-                : ColorScheme.light(
-                    primary: theme.colorScheme.primary,
-                    onPrimary: theme.colorScheme.onPrimary,
-                  ),
+            colorScheme:
+                isDarkMode
+                    ? ColorScheme.dark(
+                      primary: theme.colorScheme.primary,
+                      onPrimary: theme.colorScheme.onPrimary,
+                    )
+                    : ColorScheme.light(
+                      primary: theme.colorScheme.primary,
+                      onPrimary: theme.colorScheme.onPrimary,
+                    ),
           ),
           child: child!,
         );
@@ -193,37 +188,28 @@ class _TreasuryScreenState extends State<TreasuryScreen> {
         ),
       ),
       showDragHandle: true,
-      builder: (context) => Container(
-        padding: EdgeInsets.only(
-          left: 16.h,
-          right: 16.h,
-          bottom: 16.h,
-        ),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                "Posting iuran",
-                style: TextStyle(fontSize: 18.fSize),
+      builder:
+          (context) => Container(
+            padding: EdgeInsets.only(left: 16.h, right: 16.h, bottom: 16.h),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text("Posting iuran", style: TextStyle(fontSize: 18.fSize)),
+                  SizedBox(height: 10.v),
+                  TextFormField(
+                    controller: _dateController,
+                    readOnly: true,
+                    decoration: const InputDecoration(labelText: 'Bulan'),
+                    onTap: () => _showMonthPicker("posting"),
+                  ),
+                  SizedBox(height: 10.v),
+                  CustomButton(onPressed: _createNewPosting, text: "Lanjutkan"),
+                ],
               ),
-              SizedBox(height: 10.v),
-              TextFormField(
-                controller: _dateController,
-                readOnly: true,
-                decoration: const InputDecoration(labelText: 'Bulan'),
-                onTap: () => _showMonthPicker("posting"),
-              ),
-              SizedBox(height: 10.v),
-              CustomButton(
-                onPressed: _createNewPosting,
-                text: "Lanjutkan",
-              ),
-            ],
+            ),
           ),
-        ),
-      ),
     );
   }
 
@@ -238,19 +224,17 @@ class _TreasuryScreenState extends State<TreasuryScreen> {
           children: [
             if (_loading)
               LinearProgressIndicator(
-                backgroundColor: isDarkMode
-                    ? theme.colorScheme.primaryContainer
-                    : theme.colorScheme.onPrimary,
+                backgroundColor:
+                    isDarkMode
+                        ? theme.colorScheme.primaryContainer
+                        : theme.colorScheme.onPrimary,
               ),
             Padding(
               padding: EdgeInsets.all(10.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Bendahara',
-                    style: theme.textTheme.titleLarge,
-                  ),
+                  Text('Bendahara', style: theme.textTheme.titleLarge),
                   SizedBox(height: 20.v),
                   Row(
                     children: [
@@ -258,8 +242,9 @@ class _TreasuryScreenState extends State<TreasuryScreen> {
                         child: Highlight(
                           title: 'Belum bayar',
                           total: _totalUnpaid,
-                          onTap: _unpaidCitizens != null
-                              ? () => RouteHelper.push(
+                          onTap:
+                              _unpaidCitizens != null
+                                  ? () => RouteHelper.push(
                                     context,
                                     widget: ListDataScreen(
                                       listData: _unpaidCitizens!.dues,
@@ -271,7 +256,7 @@ class _TreasuryScreenState extends State<TreasuryScreen> {
                                     transitionType:
                                         PageTransitionType.rightToLeft,
                                   )
-                              : () {},
+                                  : () {},
                         ),
                       ),
                       SizedBox(width: 8.h),
@@ -279,8 +264,9 @@ class _TreasuryScreenState extends State<TreasuryScreen> {
                         child: Highlight(
                           title: 'Sudah bayar',
                           total: _totalPaid,
-                          onTap: _paidCitizens != null
-                              ? () => RouteHelper.push(
+                          onTap:
+                              _paidCitizens != null
+                                  ? () => RouteHelper.push(
                                     context,
                                     widget: ListDataScreen(
                                       listData: _paidCitizens!.dues,
@@ -290,7 +276,7 @@ class _TreasuryScreenState extends State<TreasuryScreen> {
                                     transitionType:
                                         PageTransitionType.rightToLeft,
                                   )
-                              : () {},
+                                  : () {},
                         ),
                       ),
                     ],
@@ -302,8 +288,9 @@ class _TreasuryScreenState extends State<TreasuryScreen> {
                         child: Highlight(
                           title: 'Belum konfirmasi',
                           total: _totalUnconfirmed,
-                          onTap: _unConfirmedCitizens != null
-                              ? () => RouteHelper.push(
+                          onTap:
+                              _unConfirmedCitizens != null
+                                  ? () => RouteHelper.push(
                                     context,
                                     widget: ListDataScreen(
                                       listData: _unConfirmedCitizens!.dues,
@@ -313,7 +300,7 @@ class _TreasuryScreenState extends State<TreasuryScreen> {
                                     transitionType:
                                         PageTransitionType.rightToLeft,
                                   )
-                              : () {},
+                                  : () {},
                         ),
                       ),
                       SizedBox(width: 8.h),
@@ -321,8 +308,9 @@ class _TreasuryScreenState extends State<TreasuryScreen> {
                         child: Highlight(
                           title: 'Sudah konfirmasi',
                           total: _totalConfirmed,
-                          onTap: _confirmedCitizens != null
-                              ? () => RouteHelper.push(
+                          onTap:
+                              _confirmedCitizens != null
+                                  ? () => RouteHelper.push(
                                     context,
                                     widget: ListDataScreen(
                                       listData: _confirmedCitizens!.dues,
@@ -332,16 +320,13 @@ class _TreasuryScreenState extends State<TreasuryScreen> {
                                     transitionType:
                                         PageTransitionType.rightToLeft,
                                   )
-                              : () {},
+                                  : () {},
                         ),
                       ),
                     ],
                   ),
                   SizedBox(height: 20.v),
-                  Text(
-                    'Baru konfirmasi',
-                    style: theme.textTheme.titleMedium,
-                  ),
+                  Text('Baru konfirmasi', style: theme.textTheme.titleMedium),
                   SizedBox(height: 5.v),
                   Expanded(
                     child: NewConfirmation(
@@ -369,7 +354,7 @@ class _TreasuryScreenState extends State<TreasuryScreen> {
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

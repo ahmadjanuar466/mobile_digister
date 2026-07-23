@@ -108,8 +108,8 @@ class _AnnouncementState extends State<Announcement> {
                 dotWidth: 10.h,
                 activeDotColor: theme.colorScheme.primary,
                 dotColor: isDarkMode
-                    ? theme.colorScheme.onPrimary.withOpacity(0.5)
-                    : theme.colorScheme.secondary.withOpacity(0.2),
+                    ? theme.colorScheme.onPrimary.withValues(alpha: 0.5)
+                    : theme.colorScheme.secondary.withValues(alpha: 0.2),
               ),
             ),
           )

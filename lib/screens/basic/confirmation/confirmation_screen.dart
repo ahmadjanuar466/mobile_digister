@@ -55,7 +55,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen>
       ),
       body: PopScope(
         canPop: !widget.fromNotification,
-        onPopInvoked: (didPop) {
+        onPopInvokedWithResult: (didPop, _) {
           if (didPop) return;
 
           RouteHelper.pop(context);

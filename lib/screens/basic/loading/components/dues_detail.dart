@@ -41,7 +41,7 @@ class DuesDetail extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: theme.colorScheme.secondary.withOpacity(0.1),
+            color: theme.colorScheme.secondary.withValues(alpha: 0.1),
             offset: const Offset(4, 5),
             blurRadius: 9,
             spreadRadius: 0,

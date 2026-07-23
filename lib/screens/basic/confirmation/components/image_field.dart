@@ -26,9 +26,10 @@ class ImageField extends StatelessWidget {
       width: double.infinity,
       height: 200.v,
       child: DottedBorder(
-        borderType: BorderType.RRect,
-        radius: Radius.circular(16.h),
-        color: isDarkMode ? theme.colorScheme.onPrimary : Colors.black45,
+        options: RoundedRectDottedBorderOptions(
+          radius: Radius.circular(16.h),
+          color: isDarkMode ? theme.colorScheme.onPrimary : Colors.black45,
+        ),
         child: Center(
           child: image == null
               ? GestureDetector(
